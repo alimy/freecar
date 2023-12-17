@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "gomod"
+    directory: "/"
+    labels:
+      - "dependencies"
+    schedule:
+      interval: "monthly"
+    ignore:
+      - dependency-name: "go.opentelemetry.io/otel/trace"
+      - dependency-name: "github.com/apache/thrift"

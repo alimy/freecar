@@ -1,0 +1,67 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  MODULE: github.com/alimy/freecar/idle
+  DEST: auto
+  KITEX_GENPATH: auto/rpc
+
+dotenv: ['.env']
+
+tasks:
+  default:
+    cmds:
+      - task: generate
+      - task: gofmt
+
+  generate:
+    desc: "generate public interface"
+    dir: '{{.USER_WORKING_DIR}}'
+    silent: true
+    aliases: [gen]
+    cmds:
+      - task: gen-mir
+      - task: gen-kitex
+
+  gen-mir:
+    desc: "generate go-mir interface"
+    dir: '{{.USER_WORKING_DIR}}'
+    silent: true
+    sources:
+      - mirc/**/*.thrift
+    cmds:
+      - go generate mirc/gen.go
+      - go fmt ./auto/api/...
+
+  gen-kitex:
+    desc: "generate kitex interface"
+    dir: '{{.USER_WORKING_DIR}}'
+    silent: true
+    sources:
+      - thrift/**/*.thrift
+    vars:
+      FILES: 
+        sh: find thrift -type f -name '*.thrift' -depth 1
+    cmds:
+      - for: { var: FILES, as: FILE }
+        cmd: kitex -module {{.MODULE}} -gen-path {{.KITEX_GENPATH}} {{.FILE}}
+  
+  gofmt:
+    desc: "go fmt project"
+    dir: '{{.USER_WORKING_DIR}}'
+    aliases:
+      - "fmt"
+    cmds:
+      - go fmt ./...
+
+  clean:
+    desc: "clean project"
+    deps:
+      - clear-dest
+
+  clear-dest:
+    dir: '{{.USER_WORKING_DIR}}'
+    internal: true
+    cmds:
+      - rm -rf {{.DEST}}/{rpc,api}

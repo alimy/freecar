@@ -1,0 +1,68 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  TARGET: app
+  DEST: bin
+
+dotenv: ['.env']
+
+tasks:
+  default:
+    cmds:
+      - task: gofmt
+      - task: serve
+
+  serve:
+    desc: "run app"
+    dir: '{{.USER_WORKING_DIR}}'
+    silent: true
+    cmds:
+      - go run .
+
+  build:
+    desc: "build app"
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - go build -o {{.DEST}}/{{.TARGET}} .
+  
+  gofmt:
+    desc: "go fmt project"
+    dir: '{{.USER_WORKING_DIR}}'
+    aliases:
+      - "fmt"
+    cmds:
+      - go fmt ./...
+
+  clean:
+    desc: "clean project"
+    deps:
+      - clear-dest
+
+  clear-dest:
+    dir: '{{.USER_WORKING_DIR}}'
+    internal: true
+    cmds:
+      - rm -rf {{.DEST}}
+
+  docker:build:
+    desc: "docker build image for app"
+    dotenv:
+      - "{{.USER_WORKING_DIR}}/.env"
+    cmds:
+      - docker build  -f build/docker/Dockerfile.app -t "$IMAGE_NAME:$IMAGE_TAG" {{.USER_WORKING_DIR}}
+
+  git:push:
+    desc: "git push to remote repository"
+    cmds:
+      - ./run.sh
+
+  gen:hz:
+    desc: "generate hertz source code"
+    dotenv: ['.env']
+    dir: '{{.USER_WORKING_DIR}}'
+    aliases:
+      - "hz"
+    cmds:
+      - for FILE in $IDL_FILES; do hz update --idl ../../idle/thrift/$IDL_DIR/$FILE; done
