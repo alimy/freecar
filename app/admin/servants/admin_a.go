@@ -1,15 +1,15 @@
 package servants
 
 import (
-	api "github.com/alimy/freecar/app/admin/auto/api/v2"
+	api "github.com/alimy/freecar/app/admin/auto/api/v1"
 )
 
-type adminSrvB struct {
+type adminSrvA struct {
 	baseSrv
 
 	api.UnimplementedAdminServant
 }
 
-func newAdminSrvB() api.Admin {
-	return &adminSrvB{}
+func newAdminSrvA() api.Admin {
+	return &adminSrvA{}
 }
