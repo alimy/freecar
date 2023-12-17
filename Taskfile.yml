@@ -67,7 +67,7 @@ tasks:
     aliases:
       - "hz"
     cmds:
-      - for FILE_NAME in $IDL_FILES_NAME; do hz update --idl ../../idle/thrift/$IDL_DIR/$FILE_NAME.thrift; done
+      - for FILE_NAME in $IDL_FILES; do hz update --idl ../../idle/thrift/$IDL_DIR/$FILE_NAME.thrift; done
   
   gen:mir:
     desc: "generate go-mir interface"
