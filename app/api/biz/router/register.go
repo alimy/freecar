@@ -23,5 +23,4 @@ func GeneratedRegister(r *server.Hertz) {
 	gpt.Register(r)
 
 	car.Register(r)
-
 }
