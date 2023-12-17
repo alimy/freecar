@@ -28,6 +28,8 @@ tasks:
     desc: "generate go-mir interface"
     dir: '{{.USER_WORKING_DIR}}'
     silent: true
+    aliases:
+      - "mir"
     sources:
       - mirc/**/*.go
     cmds:
@@ -38,6 +40,9 @@ tasks:
     desc: "generate kitex interface"
     dir: '{{.USER_WORKING_DIR}}'
     silent: true
+    aliases:
+      - "kitex"
+      - "kx"
     sources:
       - thrift/**/*.thrift
     vars:

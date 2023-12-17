@@ -2,6 +2,7 @@ package servants
 
 import (
 	api "github.com/alimy/freecar/app/admin/auto/api/v1"
+	apiv2 "github.com/alimy/freecar/app/admin/auto/api/v2"
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,4 +10,6 @@ import (
 func RegisterServants(e *gin.Engine) {
 	api.RegisterSiteServant(e, newSiteSrvA())
 	api.RegisterAdminServant(e, newAdminSrvA())
+	apiv2.RegisterAdminServant(e, newAdminSrvB())
+	apiv2.RegisterSiteServant(e, newSiteSrvB())
 }

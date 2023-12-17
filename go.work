@@ -8,5 +8,9 @@ use (
 	./app/profile
 	./app/trip
 	./app/user
-	./idle
+)
+
+replace (
+	github.com/alimy/freecar/idle => ./idle
+	github.com/apache/thrift => github.com/apache/thrift v0.13.0
 )

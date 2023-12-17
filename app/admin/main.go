@@ -14,7 +14,7 @@ func main() {
 	servants.RegisterServants(e)
 
 	// start servant service
-	if err := e.Run(); err != nil {
+	if err := e.Run(":8888"); err != nil {
 		log.Fatal(err)
 	}
 }

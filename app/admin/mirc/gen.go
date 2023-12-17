@@ -16,6 +16,7 @@ import (
 
 	_ "github.com/alimy/freecar/app/admin/mirc/admin/v1"
 	_ "github.com/alimy/freecar/app/admin/mirc/web/v1"
+	_ "github.com/alimy/freecar/app/admin/mirc/web/v2"
 )
 
 //go:generate go run $GOFILE
