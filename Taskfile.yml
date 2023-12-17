@@ -18,6 +18,8 @@ tasks:
     desc: "run app"
     dir: '{{.USER_WORKING_DIR}}'
     silent: true
+    aliases:
+      - "run"
     cmds:
       - go run .
 
@@ -65,4 +67,16 @@ tasks:
     aliases:
       - "hz"
     cmds:
-      - for FILE in $IDL_FILES; do hz update --idl ../../idle/thrift/$IDL_DIR/$FILE; done
+      - for FILE_NAME in $IDL_FILES_NAME; do hz update --idl ../../idle/thrift/$IDL_DIR/$FILE_NAME.thrift; done
+  
+  gen:mir:
+    desc: "generate go-mir interface"
+    dir: '{{.USER_WORKING_DIR}}'
+    silent: true
+    aliases:
+      - "mir"
+    sources:
+      - mirc/**/*.go
+    cmds:
+      - go generate mirc/gen.go
+      - go fmt ./auto/api/...

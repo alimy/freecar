@@ -29,7 +29,7 @@ tasks:
     dir: '{{.USER_WORKING_DIR}}'
     silent: true
     sources:
-      - mirc/**/*.thrift
+      - mirc/**/*.go
     cmds:
       - go generate mirc/gen.go
       - go fmt ./auto/api/...
