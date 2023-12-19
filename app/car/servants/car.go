@@ -1,4 +1,4 @@
-package main
+package servants
 
 import (
 	"context"
@@ -8,15 +8,19 @@ import (
 	"github.com/alimy/freecar/app/car/pkg/mongo"
 	"github.com/alimy/freecar/idle/auto/rpc/base"
 	"github.com/alimy/freecar/idle/auto/rpc/car"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/id"
-	"github.com/alimy/freecar/library/cor/tools"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/id"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 
-// CarServiceImpl implements the last service interface defined in the IDL.
-type CarServiceImpl struct {
+var (
+	_ car.CarService = (*carSrv)(nil)
+)
+
+// carSrv implements the last service interface defined in the IDL.
+type carSrv struct {
 	MongoManager
 	Publisher
 	RedisManager
@@ -43,8 +47,8 @@ type MongoManager interface {
 	UpdateCar(c context.Context, id id.CarID, status base.CarStatus, update *mongo.CarUpdate) (*mongo.CarRecord, error)
 }
 
-// CreateCar implements the CarServiceImpl interface.
-func (s *CarServiceImpl) CreateCar(ctx context.Context, req *car.CreateCarRequest) (resp *car.CreateCarResponse, err error) {
+// CreateCar implements the carSrv interface.
+func (s *carSrv) CreateCar(ctx context.Context, req *car.CreateCarRequest) (resp *car.CreateCarResponse, err error) {
 	resp = new(car.CreateCarResponse)
 	cr, err := s.MongoManager.CreateCar(ctx, req.PlateNum)
 	if err != nil {
@@ -60,8 +64,8 @@ func (s *CarServiceImpl) CreateCar(ctx context.Context, req *car.CreateCarReques
 	return resp, nil
 }
 
-// GetCar implements the CarServiceImpl interface.
-func (s *CarServiceImpl) GetCar(ctx context.Context, req *car.GetCarRequest) (resp *car.GetCarResponse, err error) {
+// GetCar implements the carSrv interface.
+func (s *carSrv) GetCar(ctx context.Context, req *car.GetCarRequest) (resp *car.GetCarResponse, err error) {
 	resp = new(car.GetCarResponse)
 	en, err := s.RedisManager.GetCar(ctx, id.CarID(req.Id))
 	if err == nil {
@@ -85,8 +89,8 @@ func (s *CarServiceImpl) GetCar(ctx context.Context, req *car.GetCarRequest) (re
 	return resp, nil
 }
 
-// GetCars implements the CarServiceImpl interface.
-func (s *CarServiceImpl) GetCars(ctx context.Context, _ *car.GetCarsRequest) (resp *car.GetCarsResponse, err error) {
+// GetCars implements the carSrv interface.
+func (s *carSrv) GetCars(ctx context.Context, _ *car.GetCarsRequest) (resp *car.GetCarsResponse, err error) {
 	resp = new(car.GetCarsResponse)
 	cars, err := s.MongoManager.GetCars(ctx, math.MaxInt64)
 	if err != nil {
@@ -105,8 +109,8 @@ func (s *CarServiceImpl) GetCars(ctx context.Context, _ *car.GetCarsRequest) (re
 	return resp, nil
 }
 
-// LockCar implements the CarServiceImpl interface.
-func (s *CarServiceImpl) LockCar(ctx context.Context, req *car.LockCarRequest) (resp *car.LockCarResponse, err error) {
+// LockCar implements the carSrv interface.
+func (s *carSrv) LockCar(ctx context.Context, req *car.LockCarRequest) (resp *car.LockCarResponse, err error) {
 	resp = new(car.LockCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove car cache err", err)
@@ -127,8 +131,8 @@ func (s *CarServiceImpl) LockCar(ctx context.Context, req *car.LockCarRequest) (
 	return resp, nil
 }
 
-// UnlockCar implements the CarServiceImpl interface.
-func (s *CarServiceImpl) UnlockCar(ctx context.Context, req *car.UnlockCarRequest) (resp *car.UnlockCarResponse, err error) {
+// UnlockCar implements the carSrv interface.
+func (s *carSrv) UnlockCar(ctx context.Context, req *car.UnlockCarRequest) (resp *car.UnlockCarResponse, err error) {
 	resp = new(car.UnlockCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error")
@@ -151,8 +155,8 @@ func (s *CarServiceImpl) UnlockCar(ctx context.Context, req *car.UnlockCarReques
 	return resp, nil
 }
 
-// UpdateCar implements the CarServiceImpl interface.
-func (s *CarServiceImpl) UpdateCar(ctx context.Context, req *car.UpdateCarRequest) (resp *car.UpdateCarResponse, err error) {
+// UpdateCar implements the carSrv interface.
+func (s *carSrv) UpdateCar(ctx context.Context, req *car.UpdateCarRequest) (resp *car.UpdateCarResponse, err error) {
 	resp = new(car.UpdateCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error")
@@ -185,7 +189,7 @@ func (s *CarServiceImpl) UpdateCar(ctx context.Context, req *car.UpdateCarReques
 	return resp, nil
 }
 
-func (s *CarServiceImpl) publish(c context.Context, cr *mongo.CarRecord) {
+func (s *carSrv) publish(c context.Context, cr *mongo.CarRecord) {
 	err := s.Publisher.Publish(c, &base.CarEntity{
 		Id:  cr.ID.Hex(),
 		Car: cr.Car,
@@ -195,8 +199,8 @@ func (s *CarServiceImpl) publish(c context.Context, cr *mongo.CarRecord) {
 	}
 }
 
-// DeleteCar implements the CarServiceImpl interface.
-func (s *CarServiceImpl) DeleteCar(ctx context.Context, req *car.DeleteCarRequest) (resp *car.DeleteCarResponse, err error) {
+// DeleteCar implements the carSrv interface.
+func (s *carSrv) DeleteCar(ctx context.Context, req *car.DeleteCarRequest) (resp *car.DeleteCarResponse, err error) {
 	resp = new(car.DeleteCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error", err)
@@ -217,8 +221,8 @@ func (s *CarServiceImpl) DeleteCar(ctx context.Context, req *car.DeleteCarReques
 	return resp, nil
 }
 
-// AdminUpdateCar implements the CarServiceImpl interface.
-func (s *CarServiceImpl) AdminUpdateCar(ctx context.Context, req *car.AdminUpdateCarRequest) (resp *car.AdminUpdateCarResponse, err error) {
+// AdminUpdateCar implements the carSrv interface.
+func (s *carSrv) AdminUpdateCar(ctx context.Context, req *car.AdminUpdateCarRequest) (resp *car.AdminUpdateCarResponse, err error) {
 	resp = new(car.AdminUpdateCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error")
@@ -248,8 +252,8 @@ func (s *CarServiceImpl) AdminUpdateCar(ctx context.Context, req *car.AdminUpdat
 	return resp, nil
 }
 
-// GetSomeCars implements the CarServiceImpl interface.
-func (s *CarServiceImpl) GetSomeCars(ctx context.Context, req *car.GetSomeCarsRequest) (resp *car.GetSomeCarsResponse, err error) {
+// GetSomeCars implements the carSrv interface.
+func (s *carSrv) GetSomeCars(ctx context.Context, req *car.GetSomeCarsRequest) (resp *car.GetSomeCarsResponse, err error) {
 	resp = new(car.GetSomeCarsResponse)
 	cars, err := s.MongoManager.GetCars(ctx, consts.LimitOfSomeCars)
 	if err != nil {
@@ -267,8 +271,8 @@ func (s *CarServiceImpl) GetSomeCars(ctx context.Context, req *car.GetSomeCarsRe
 	return resp, nil
 }
 
-// GetAllCars implements the CarServiceImpl interface.
-func (s *CarServiceImpl) GetAllCars(ctx context.Context, req *car.GetAllCarsRequest) (resp *car.GetAllCarsResponse, err error) {
+// GetAllCars implements the carSrv interface.
+func (s *carSrv) GetAllCars(ctx context.Context, req *car.GetAllCarsRequest) (resp *car.GetAllCarsResponse, err error) {
 	resp = new(car.GetAllCarsResponse)
 	cars, err := s.MongoManager.GetCars(ctx, math.MaxInt64)
 	if err != nil {

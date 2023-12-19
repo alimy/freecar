@@ -1,4 +1,4 @@
-package initialize
+package rpc
 
 import (
 	"fmt"
@@ -15,8 +15,8 @@ import (
 	consul "github.com/kitex-contrib/registry-consul"
 )
 
-// InitTrip to init trip service
-func InitTrip() *tripservice.Client {
+// initTrip to init trip service
+func initTrip() {
 	// init resolver
 	r, err := consul.NewConsulResolver(fmt.Sprintf("%s:%d",
 		config.GlobalConsulConfig.Host,
@@ -32,7 +32,7 @@ func InitTrip() *tripservice.Client {
 	)
 
 	// create a new client
-	c, err := tripservice.NewClient(
+	TripSvc, err = tripservice.NewClient(
 		config.GlobalServerConfig.TripSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
@@ -43,5 +43,4 @@ func InitTrip() *tripservice.Client {
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)
 	}
-	return &c
 }

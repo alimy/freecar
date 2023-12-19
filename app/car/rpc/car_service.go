@@ -1,10 +1,10 @@
-package initialize
+package rpc
 
 import (
 	"fmt"
 
 	"github.com/alimy/freecar/app/car/config"
-	"github.com/alimy/freecar/idle/auto/rpc/trip/tripservice"
+	"github.com/alimy/freecar/idle/auto/rpc/car/carservice"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -15,8 +15,8 @@ import (
 	consul "github.com/kitex-contrib/registry-consul"
 )
 
-// InitTrip to init trip service
-func InitTrip() *tripservice.Client {
+// initCar to init car service
+func initCar() {
 	// init resolver
 	r, err := consul.NewConsulResolver(fmt.Sprintf("%s:%d",
 		config.GlobalConsulConfig.Host,
@@ -26,22 +26,21 @@ func InitTrip() *tripservice.Client {
 	}
 	// init OpenTelemetry
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(config.GlobalServerConfig.TripSrvInfo.Name),
+		provider.WithServiceName(config.GlobalServerConfig.Name),
 		provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
 		provider.WithInsecure(),
 	)
 
 	// create a new client
-	c, err := tripservice.NewClient(
-		config.GlobalServerConfig.TripSrvInfo.Name,
+	CarSvc, err = carservice.NewClient(
+		config.GlobalServerConfig.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
 		client.WithMuxConnection(1),                                // multiplexing
 		client.WithSuite(tracing.NewClientSuite()),
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.TripSrvInfo.Name}),
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.Name}),
 	)
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)
 	}
-	return &c
 }

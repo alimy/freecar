@@ -1,10 +1,10 @@
-package initialize
+package internal
 
 import (
 	"fmt"
 
 	"github.com/alimy/freecar/app/car/config"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/go-redis/redis/v8"
 )
 

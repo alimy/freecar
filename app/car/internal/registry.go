@@ -1,11 +1,11 @@
-package initialize
+package internal
 
 import (
 	"net"
 	"strconv"
 
 	"github.com/alimy/freecar/app/car/config"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/registry"
