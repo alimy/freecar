@@ -1,101 +1,102 @@
 ![FreeCar](img/FreeCar.png)
 
-English | [中文](README_zh.md)
+[English](README.md) | 中文
 
-FreeCar is a cloud-native time-sharing car rental system suite based on [Hertz](https://github.com/cloudwego/hertz) and [Kitex](https://github.com/cloudwego/kitex).
+FreeCar 是一个基于 [Hertz](https://github.com/cloudwego/hertz) 与 [Kitex](https://github.com/cloudwego/kitex) 的云原生分时汽车租赁系统套件。
 
-## Project Architecture
+## 项目架构
 
-### Call Relationship
+### 调用关系
 
 ![call_relations.png](img/call_relation.png)
 
-### Technology Architecture
+### 技术架构
 
 ![tech_arch](img/tech_arch.png)
 
-### Service Relations
+### 服务关系
 
 ![service_relations.png](img/service_relations.png)
 
-## Technology Stack
+## 技术栈
 
-| Function                         | Implementation        |
-|----------------------------------|-----------------------|
-| HTTP Framework                   | Hertz                 |
-| RPC Framework                    | Kitex                 |
-| Database                         | MongoDB, MySQL, Redis |
-| Authentication                   | Paseto                |
-| Service and Configuration Center | Consul                |
-| Metrics Monitoring               | Prometheus            | 
-| Tracing                          | Jaeger                |
-| Message Queue                    | RabbitMQ              |
-| Service Governance               | OpenTelemetry         |
-| Current Limiting Fuse            | Sentinel              |
-| Object Storage                   | MinIO                 |
-| Image Recognition                | Baidu OCR             |
-| CI                               | GitHub Actions        |
+| 功能      | 实现                  |
+|---------|---------------------|
+| HTTP 框架 | Hertz               |
+| RPC 框架  | Kitex               |
+| 数据库     | MongoDB、MySQL、Redis |
+| 身份鉴权    | Paseto              |
+| 服务与配置中心 | Consul              |
+| 消息队列    | RabbitMQ            |
+| 服务治理    | OpenTelemetry       |
+| 指标监控    | Prometheus          |
+| 链路追踪    | Jaeger              |
+| 限流熔断    | Sentinel            |
+| 对象存储    | MinIO               |
+| 图像识别    | 百度 OCR              |
+| CI      | GitHub Actions      |
 
-## Display
+## 页面展示
 
-### Mini Program
+### 小程序端
 
-Mini program project address [FreeCar-MP](https://github.com/CyanAsterisk/FreeCar-MP)
+小程序端地址 [FreeCar-MP](https://github.com/CyanAsterisk/FreeCar-MP)
 
 ![display.png](img/display.png)
 
-### Admin
+### 后台管理系统
 
-Admin project address [FreeCar-Admin](https://github.com/CyanAsterisk/FreeCar-Admin)
+后台管理系统地址 [FreeCar-Admin](https://github.com/CyanAsterisk/FreeCar-Admin)
 
 ![data-analize.png](img/data-analize.png)
 
 ![back.png](img/back.png)
 
-## Catalog Introduce
 
-| Catalog | Introduction                             |
-|---------|------------------------------------------|
-| Cmd     | Project Core                             |
-| Idl     | IDL file for all services of the project |
-| Shared  | Reusable Code                            |
+## 目录介绍
 
-## Service Introduce
+| 目录     | 介绍             |
+|--------|----------------|
+| Cmd    | 项目核心部分         |
+| Idl    | 项目所有服务的 IDL 文件 |
+| Shared | 可复用代码          |
 
-| Catalog | Introduction                                       |
-|---------|----------------------------------------------------|
-| API     | Hertz-based gateway service                        |
-| User    | User Authentication Service                        |
-| Blob    | Services related to image and MinIO object storage |
-| Car     | Car Service                                        |
-| Profile | Home Page and Image Recognition Service            |
-| Trip    | Itinerary Services                                 |
+## 服务介绍
 
-## Quick start
+| 目录      | 介绍                   |
+|---------|----------------------|
+| API     | 基于 Hertz 的网关服务       |
+| User    | 用户认证服务               |
+| Blob    | 与图片和 MinIO 对象存储相关的服务 |
+| Car     | 汽车服务                 |
+| Profile | 主页与图片识别服务            |
+| Trip    | 行程服务                 |
 
-### Start the Dependence
+## 快速开始
+
+### 启动基础环境
 
 ```shell
 make start
 ```
 
-### Consul
+### 配置 Consul
 
-> For the default Consul address and KV configuration, please refer to each `config.yaml` configuration file.
+> 默认 Consul 地址与 KV 配置等请参考各个 `config.yaml` 配置文件。
 
 ![consul_service.png](img/consul_service.png)
 
 ![consul_kv.png](img/consul_kv.png)
 
-For detailed configuration of KV key-value pairs, [see](docs/CONSUL_CONFIG.md).
+关于 KV 键值对的详细配置，[详见](docs/CONSUL_CONFIG.md)。
 
-### Start HTTP
+### 启动 HTTP 服务
 
 ```shell
 make api
 ```
 
-### Start RPC
+### 启动 RPC 服务
 
 ```shell
 make user
@@ -107,7 +108,7 @@ make trip
 
 ### Jaeger
 
-> Visit `http://127.0.0.1:16686/` on your browser
+> 在浏览器上访问 `http://127.0.0.1:16686/`
 
 ![jaeger.jpg](img/jaeger.png)
 
@@ -115,17 +116,17 @@ make trip
 
 ### Prometheus
 
-> Visit `http://127.0.0.1:3000/` on your browser
+> 在浏览器上访问 `http://127.0.0.1:3000/`
 
 ![prometheus.jpg](img/prometheus.png)
 
 ### MinIO
 
-> Visit `http://127.0.0.1:9000/` on your browser
+> 在浏览器上访问 `http://127.0.0.1:9000/`
 
 ![minio.jpg](img/minio.png)
 
-## K8s Deployment
+## K8s 部署
 
 ```shell
 cd deployment/freecar-k8s
@@ -144,101 +145,92 @@ make all
 
 ![service.png](img/service.png)
 
-## Development Guide
 
-It is very difficult to understand this project by directly reading the source code. Here is a development guide for
-developers to quickly understand and get started with this project, including frameworks such as Kitex and Hertz.
+## 开发指南
 
-### Preparation
+通过直接阅读源码来了解此项目是非常困难的，在此提供开发指南方便开发者快速了解并上手此项目包括 Kitex、Hertz 等框架。
 
-Use the commands in the quick start to quickly start the required tools and environment. If you need special
-customization, please modify the contents of `docker-compose.yaml` and Nacos configuration.
+### 前置准备
+
+通过快速开始中的命令快速启动所需的工具与环境，若需要特殊定制请修改 `docker-compose.yaml` 与 Nacos 配置中的内容。
 
 ### IDL
 
-Before development, we need to define the IDL file, among which hz provides developers with many
-customized [api annotations](https://www.cloudwego.io/zh/docs/hertz/tutorials/toolkit/usage/annotation/#%E6%94%AF%E6%8C%81%E7%9A%84-api-%E6%B3%A8%E8%A7%A3).
+在开发之前我们需要定义好 IDL 文件，其中 hz
+为开发者提供了许多定制化的 [api 注解](https://www.cloudwego.io/zh/docs/hertz/tutorials/toolkit/usage/annotation/#%E6%94%AF%E6%8C%81%E7%9A%84-api-%E6%B3%A8%E8%A7%A3)。
 
-Sample code:
+示例代码：
 
 ```thrift
 namespace go user
 
 struct LoginRequest {
-     1: string code
+    1: string code
 }
 
 struct LoginResponse {
-     1: i64 accountID
+    1: i64 accountID
 }
 
 service UserService {
-     LoginResponse Login(1: LoginRequest req)
+    LoginResponse Login(1: LoginRequest req)
 }
 ```
 
-### Code Generation
+### 代码生成
 
 #### Kitex
 
-First generate `kitex_gen` in the `shared` folder, and then rely on `kitex_gen` in the corresponding service folder to
-generate. Execute under the new service directory, only need to change the service name and IDL path each time.
+首先在 `shared` 文件夹下生成 `kitex_gen`，再在相对应服务文件夹下依赖 `kitex_gen` 进行生成。在新增服务目录下执行，每次仅需更改服务名与
+IDL 路径。
 
 ```shell
 kitex -module github.com/CyanAsterisk/FreeCar ./../idl/rpc/user.thrift
-kitex -service user -module github.com/CyanAsterisk/FreeCar -use github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen ./../../idl/rpc/user.thrift
+kitex -service user -module github.com/CyanAsterisk/FreeCar -use github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen  ./../../idl/rpc/user.thrift
 ```
 
-Note:
+注意项：
 
-- Use `-module github.com/CyanAsterisk/FreeCar` This parameter is used to specify the Go module to which the generated
-  code belongs to avoid path problems.
-- When the current service needs to call other services, it needs to rely on `kitex_gen`.
+- 用 `-module github.com/CyanAsterisk/FreeCar` 该参数用于指定生成代码所属的 Go 模块，避免路径问题。
+- 当前服务需要调用其他服务时需依赖 `kitex_gen`。
 
 #### Hertz
 
-##### Initialize
+##### 初始化
 
 ```shell
 hz new -idl ./../../idl/api.proto -mod github.com/CyanAsterisk/FreeCar/server/cmd/api
 ```
 
-Note:
+注意项：
 
-- Use `-module github.com/CyanAsterisk/FreeCar/server/cmd/api` This parameter is used to specify the Go module to which
-  the generated code belongs to avoid path problems.
+- 用 `-module github.com/CyanAsterisk/FreeCar/server/cmd/api` 该参数用于指定生成代码所属的 Go 模块，避免路径问题。
 
-### Business Development
+### 业务开发
 
-After the code is generated, some necessary components need to be added to the project. Since the api layer does not
-need to be added again, the following mainly explains about Kitex-Server
-section, the code is located under `server/cmd`.
+在代码生成完毕后需要先将一些必须组件添加到项目中。由于 api 层不必再次添加，因此以下主要讲解关于 Kitex-Server
+部分，代码位于 `server/cmd` 下。
 
 #### Config
 
-Refer to `server/cmd/user/config` for the configuration structure of microservices.
+参考 `server/cmd/user/config`，为微服务的配置结构体。
 
 #### Initialize
 
-Refer to `server/cmd/user/initialize` to provide the initialization function of the necessary components, among
-which `config.go` `registry.go` `flag.go` `logger.go` are required.
+参考 `server/cmd/user/initialize`，提供必要组件的初始化功能，其中 `config.go` `registry.go` `flag.go` `logger.go` 为必须项。
 
 #### Pkg
 
-Refer to `server/cmd/user/pkg` to provide calling functions of microservices, which are mainly used to implement the
-interfaces defined in `handler.go`.
+参考 `server/cmd/user/pkg`，提供微服务的调用函数，主要用于实现 `handler.go` 中定义的接口。
 
 #### API
 
-When writing the business logic of the gateway layer, you only need to update the IDL and the new microservice client
-code each time. If you need to add new components, you can add them directly. The project is highly pluggable, and the
-architecture is similar to the microservice layer.
+在写网关层的业务逻辑时，仅需要每次更新 IDL 与新的微服务客户端代码，若需要添加新的组件直接添加即可，项目高度可拔插，架构与微服务层相似。
 
-The business logic of the gateway layer is under `server/cmd/api/biz`, and most of the code will be automatically
-generated. If you need to add a new route separately, you need to go to `server/cmd/api/router.go`.
+网关层的业务逻辑在 `server/cmd/api/biz` 下，大部分代码会自动生成。若需要单独新增路由需要到 `server/cmd/api/router.go` 中。
 
-Regarding the use of middleware, you only need to add middleware logic in `server/cmd/api/biz/router/api/middleware.go`.
+关于中间件的使用，只需要在 `server/cmd/api/biz/router/api/middleware.go` 中添加中间件逻辑。
 
-## License
+## 许可证
 
-FreeCar is open source under the GNU General Public License version 3.0.
+FreeCar 在 GNU General Public 许可证 3.0 版下开源。
