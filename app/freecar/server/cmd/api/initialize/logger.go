@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"

@@ -5,7 +5,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"

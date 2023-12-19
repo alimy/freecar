@@ -6,12 +6,12 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	mgutil "github.com/CyanAsterisk/FreeCar/server/shared/mongo"
-	"github.com/CyanAsterisk/FreeCar/server/shared/mongo/objid"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/id"
+	mgutil "github.com/alimy/freecar/library/cor/mongo"
+	"github.com/alimy/freecar/library/cor/mongo/objid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )

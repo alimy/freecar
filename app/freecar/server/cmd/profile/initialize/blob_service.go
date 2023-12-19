@@ -3,8 +3,8 @@ package initialize
 import (
 	"fmt"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/profile/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/blob/blobservice"
+	"github.com/alimy/freecar/app/api/cmd/profile/config"
+	"github.com/alimy/freecar/idle/auto/rpc/blob/blobservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"

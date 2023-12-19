@@ -5,13 +5,13 @@ import (
 	"math"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/car/pkg/mongo"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/car"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
+	"github.com/alimy/freecar/app/api/cmd/car/pkg/mongo"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/idle/auto/rpc/car"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/cor/tools"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 

@@ -1,9 +1,9 @@
 package config
 
 import (
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/car/carservice"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/profile/profileservice"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/user/userservice"
+	"github.com/alimy/freecar/idle/auto/rpc/car/carservice"
+	"github.com/alimy/freecar/idle/auto/rpc/profile/profileservice"
+	"github.com/alimy/freecar/idle/auto/rpc/user/userservice"
 )
 
 var (

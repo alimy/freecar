@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"net/http"
 
-	huser "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/model/user"
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	kuser "github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/user"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
+	huser "github.com/alimy/freecar/app/api/biz/model/user"
+	"github.com/alimy/freecar/app/api/config"
+	kuser "github.com/alimy/freecar/idle/auto/rpc/user"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/tools"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 )

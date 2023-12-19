@@ -3,32 +3,36 @@
 package car
 
 import (
+	"github.com/alimy/freecar/app/api/biz/router/common"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
 func rootMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _getcarMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _getcarsMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return common.CommonMW()
 }
 
 func _adminMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.Admin),
+	}
 }
 
 func _carMw() []app.HandlerFunc {
 	// your code...
 	return nil
+}
+
+func _getcarMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.User),
+	}
+}
+
+func _getcarsMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.User),
+	}
 }
 
 func _admincreatecarMw() []app.HandlerFunc {

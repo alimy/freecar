@@ -3,7 +3,7 @@
 package gpt
 
 import (
-	gpt "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/handler/gpt"
+	gpt "github.com/alimy/freecar/app/api/biz/handler/gpt"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

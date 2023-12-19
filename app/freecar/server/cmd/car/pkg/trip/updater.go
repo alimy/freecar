@@ -3,10 +3,10 @@ package trip
 import (
 	"context"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/car/pkg/mq"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/trip"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/trip/tripservice"
+	"github.com/alimy/freecar/app/api/cmd/car/pkg/mq"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/idle/auto/rpc/trip"
+	"github.com/alimy/freecar/idle/auto/rpc/trip/tripservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 

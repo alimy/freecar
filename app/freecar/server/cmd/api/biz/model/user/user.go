@@ -5,7 +5,7 @@ package user
 import (
 	"context"
 	"fmt"
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/model/base"
+	"github.com/alimy/freecar/app/api/biz/model/base"
 	"github.com/apache/thrift/lib/go/thrift"
 )
 

@@ -4,105 +4,158 @@ package car
 
 import (
 	"context"
+	"net/http"
 
-	base "github.com/alimy/freecar/app/api/biz/model/base"
-	car "github.com/alimy/freecar/app/api/biz/model/car"
+	hcar "github.com/alimy/freecar/app/api/biz/model/car"
+	"github.com/alimy/freecar/app/api/config"
+	kcar "github.com/alimy/freecar/idle/auto/rpc/car"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 )
 
 // AdminCreateCar .
-// @router /admin/car [POST]
+// @router /admin/car/car [PUT]
 func AdminCreateCar(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req car.AdminCreateCarRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hcar.AdminCreateCarRequest
+	resp := new(kcar.CreateCarResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalCarClient.CreateCar(ctx, &kcar.CreateCarRequest{PlateNum: req.PlateNum})
+	if err != nil {
+		hlog.Error("rpc car service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminDeleteCar .
-// @router /admin/car [DELETE]
+// @router /admin/car/car [DELETE]
 func AdminDeleteCar(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req car.AdminDeleteCarRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hcar.AdminDeleteCarRequest
+	resp := new(kcar.DeleteCarResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalCarClient.DeleteCar(ctx, &kcar.DeleteCarRequest{
+		AccountId: c.MustGet(consts.AccountID).(string),
+		Id:        req.ID,
+	})
+	if err != nil {
+		hlog.Error("rpc car service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminGetSomeCars .
 // @router /admin/car/some [GET]
 func AdminGetSomeCars(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req car.AdminGetSomeCarsRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hcar.AdminGetSomeCarsRequest
+	resp := new(kcar.GetSomeCarsResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalCarClient.GetSomeCars(ctx, &kcar.GetSomeCarsRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc car service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminGetAllCars .
 // @router /admin/car/all [GET]
 func AdminGetAllCars(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req car.AdminGetAllCarsRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hcar.AdminGetAllCarsRequest
+	resp := new(kcar.GetAllCarsResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalCarClient.GetAllCars(ctx, &kcar.GetAllCarsRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc car service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetCars .
-// @router /cars [GET]
+// @router /mini/car/cars [GET]
 func GetCars(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req car.GetCarsRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hcar.GetCarsRequest
+	resp := new(kcar.GetCarsResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalCarClient.GetCars(ctx, &kcar.GetCarsRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc car service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetCar .
-// @router /car [GET]
+// @router /mini/car/car [GET]
 func GetCar(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req car.GetCarRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hcar.GetCarRequest
+	resp := new(kcar.GetCarResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalCarClient.GetCar(ctx, &kcar.GetCarRequest{
+		AccountId: c.MustGet(consts.AccountID).(string),
+		Id:        req.ID,
+	})
+	if err != nil {
+		hlog.Error("rpc car service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }

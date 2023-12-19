@@ -3,8 +3,8 @@ package initialize
 import (
 	"flag"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/tools"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 

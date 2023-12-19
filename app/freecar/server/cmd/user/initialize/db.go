@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/user/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
+	"github.com/alimy/freecar/app/api/cmd/user/config"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

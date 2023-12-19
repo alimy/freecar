@@ -4,201 +4,302 @@ package profile
 
 import (
 	"context"
+	"net/http"
 
-	base "github.com/alimy/freecar/app/api/biz/model/base"
-	profile "github.com/alimy/freecar/app/api/biz/model/profile"
+	hprofile "github.com/alimy/freecar/app/api/biz/model/profile"
+	"github.com/alimy/freecar/app/api/config"
+	kbase "github.com/alimy/freecar/idle/auto/rpc/base"
+	kprofile "github.com/alimy/freecar/idle/auto/rpc/profile"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 )
 
 // DeleteProfile .
-// @router /admin/profile [DELETE]
+// @router /profile/admin/delete [DELETE]
 func DeleteProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.DeleteProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.DeleteProfileRequest
+	resp := new(kprofile.DeleteProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.DeleteProfile(ctx, &kprofile.DeleteProfileRequest{AccountId: req.AccountID})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // CheckProfile .
-// @router /admin/profile/check [POST]
+// @router /profile/admin/check [POST]
 func CheckProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.CheckProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.CheckProfileRequest
+	resp := new(kprofile.CheckProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.CheckProfile(ctx, &kprofile.CheckProfileRequest{
+		AccountId: req.AccountID,
+		Accept:    req.Accept,
+	})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetAllProfile .
-// @router /admin/profile/all [GET]
+// @router /profile/admin/all [GET]
 func GetAllProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.GetAllProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.GetAllProfileRequest
+	resp := new(kprofile.GetAllProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.GetAllProfile(ctx, &kprofile.GetAllProfileRequest{})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetSomeProfile .
-// @router /admin/profile/some [GET]
+// @router /profile/admin/some [GET]
 func GetSomeProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.GetSomeProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.GetSomeProfileRequest
+	resp := new(kprofile.GetSomeProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.GetSomeProfile(ctx, &kprofile.GetSomeProfileRequest{})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetPendingProfile .
-// @router /admin/profile/pending [GET]
+// @router /profile/admin/pending [GET]
 func GetPendingProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.GetPendingProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.GetPendingProfileRequest
+	resp := new(kprofile.GetPendingProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.GetPendingProfile(ctx, &kprofile.GetPendingProfileRequest{})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetProfile .
-// @router /profile [GET]
+// @router /profile/mini/profile [GET]
 func GetProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.GetProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.GetProfileRequest
+	resp := new(kprofile.GetProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.GetProfile(ctx, &kprofile.GetProfileRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // SubmitProfile .
-// @router /profile [POST]
+// @router /profile/mini/profile [POST]
 func SubmitProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.SubmitProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.SubmitProfileRequest
+	resp := new(kprofile.SubmitProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.SubmitProfile(ctx, &kprofile.SubmitProfileRequest{
+		AccountId: c.MustGet(consts.AccountID).(string),
+		Identity: &kbase.Identity{
+			LicNumber:       req.Identity.LicNumber,
+			Name:            req.Identity.Name,
+			Gender:          kbase.Gender(req.Identity.Gender),
+			BirthDateMillis: req.Identity.BirthDateMillis,
+		},
+	})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // ClearProfile .
-// @router /profile [DELETE]
+// @router /profile/mini/profile [DELETE]
 func ClearProfile(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.ClearProfileRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.ClearProfileRequest
+	resp := new(kprofile.ClearProfileResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.ClearProfile(ctx, &kprofile.ClearProfileRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // CreateProfilePhoto .
-// @router /profile/photo [POST]
+// @router /profile/mini/photo [POST]
 func CreateProfilePhoto(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.CreateProfilePhotoRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.CreateProfilePhotoRequest
+	resp := new(kprofile.CreateProfilePhotoResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.CreateProfilePhoto(ctx, &kprofile.CreateProfilePhotoRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // ClearProfilePhoto .
-// @router /profile/photo [DELETE]
+// @router /profile/mini/photo [DELETE]
 func ClearProfilePhoto(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.ClearProfilePhotoRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.ClearProfilePhotoRequest
+	resp := new(kprofile.ClearProfilePhotoResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.ClearProfilePhoto(ctx, &kprofile.ClearProfilePhotoRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetProfilePhoto .
-// @router /profile/photo [GET]
+// @router /profile/mini/photo [GET]
 func GetProfilePhoto(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.GetProfilePhotoRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.GetProfilePhotoRequest
+	resp := new(kprofile.GetProfilePhotoResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.GetProfilePhoto(ctx, &kprofile.GetProfilePhotoRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // CompleteProfilePhoto .
-// @router /profile/complete [GET]
+// @router /profile/mini/complete [GET]
 func CompleteProfilePhoto(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req profile.CompleteProfilePhotoRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req hprofile.CompleteProfilePhotoRequest
+	resp := new(kprofile.CompleteProfilePhotoResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalProfileClient.CompleteProfilePhoto(ctx, &kprofile.CompleteProfilePhotoRequest{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc profile service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }

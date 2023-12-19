@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/config"
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/initialize"
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/initialize/rpc"
+	"github.com/alimy/freecar/app/api/config"
+	"github.com/alimy/freecar/app/api/initialize"
+	"github.com/alimy/freecar/app/api/initialize/rpc"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	cfg "github.com/hertz-contrib/http2/config"

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/test"
+	"github.com/alimy/freecar/library/cor/test"
 	"github.com/bytedance/sonic"
 )
 

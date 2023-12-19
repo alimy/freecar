@@ -3,8 +3,8 @@
 package user
 
 import (
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/router/common"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
+	"github.com/alimy/freecar/app/api/biz/router/common"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 

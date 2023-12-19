@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/profile/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
+	"github.com/alimy/freecar/app/api/cmd/profile/config"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

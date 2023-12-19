@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	"github.com/CyanAsterisk/FreeCar/server/shared/test"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/cor/test"
 )
 
 func TestProfileLifeCycle(t *testing.T) {

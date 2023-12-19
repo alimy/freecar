@@ -3,8 +3,8 @@ package initialize
 import (
 	"fmt"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/blob/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
+	"github.com/alimy/freecar/app/api/cmd/blob/config"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/go-redis/redis/v8"
 )
 

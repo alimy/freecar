@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	mgutil "github.com/CyanAsterisk/FreeCar/server/shared/mongo"
-	"github.com/CyanAsterisk/FreeCar/server/shared/test"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/id"
+	mgutil "github.com/alimy/freecar/library/cor/mongo"
+	"github.com/alimy/freecar/library/cor/test"
 )
 
 func TestTripLifeCycle(t *testing.T) {

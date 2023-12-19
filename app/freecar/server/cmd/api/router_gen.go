@@ -3,7 +3,7 @@
 package main
 
 import (
-	router "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/router"
+	router "github.com/alimy/freecar/app/api/biz/router"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

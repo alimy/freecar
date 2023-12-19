@@ -6,11 +6,11 @@ import (
 	"math"
 	"testing"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	car "github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	mgutil "github.com/CyanAsterisk/FreeCar/server/shared/mongo"
-	"github.com/CyanAsterisk/FreeCar/server/shared/test"
+	car "github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/id"
+	mgutil "github.com/alimy/freecar/library/cor/mongo"
+	"github.com/alimy/freecar/library/cor/test"
 )
 
 func TestCarLifeCycle(t *testing.T) {

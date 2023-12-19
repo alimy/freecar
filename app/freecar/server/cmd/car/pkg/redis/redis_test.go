@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	car "github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	"github.com/CyanAsterisk/FreeCar/server/shared/test"
+	car "github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/cor/test"
 )
 
 func TestCarLifecycle(t *testing.T) {

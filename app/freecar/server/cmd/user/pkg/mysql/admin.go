@@ -1,9 +1,9 @@
 package mysql
 
 import (
-	"github.com/CyanAsterisk/FreeCar/server/cmd/user/pkg/md5"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
+	"github.com/alimy/freecar/app/api/cmd/user/pkg/md5"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/errno"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/gorm"

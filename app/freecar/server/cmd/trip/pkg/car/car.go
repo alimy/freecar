@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/car"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/car/carservice"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/idle/auto/rpc/car"
+	"github.com/alimy/freecar/idle/auto/rpc/car/carservice"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/cor/tools"
 )
 
 // Manager defines a car manager.

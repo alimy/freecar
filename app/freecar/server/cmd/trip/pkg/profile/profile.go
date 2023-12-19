@@ -5,10 +5,10 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/profile"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/profile/profileservice"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/idle/auto/rpc/profile"
+	"github.com/alimy/freecar/idle/auto/rpc/profile/profileservice"
+	"github.com/alimy/freecar/library/cor/id"
 	"github.com/bytedance/sonic"
 )
 

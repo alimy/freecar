@@ -3,7 +3,7 @@ package initialize
 import (
 	"context"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/blob/config"
+	"github.com/alimy/freecar/app/api/cmd/blob/config"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"

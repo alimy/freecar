@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/profile/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
+	"github.com/alimy/freecar/app/api/cmd/profile/config"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/app/client"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

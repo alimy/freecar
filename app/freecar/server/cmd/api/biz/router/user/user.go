@@ -3,7 +3,7 @@
 package user
 
 import (
-	user "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/handler/user"
+	user "github.com/alimy/freecar/app/api/biz/handler/user"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

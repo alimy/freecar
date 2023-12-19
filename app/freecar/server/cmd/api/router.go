@@ -6,9 +6,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/handler"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
+	"github.com/alimy/freecar/app/api/biz/handler"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/tools"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )

@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/blob/pkg/mysql"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
+	"github.com/alimy/freecar/app/api/cmd/blob/pkg/mysql"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/id"
 	"github.com/bytedance/sonic"
 	"github.com/go-redis/redis/v8"
 )

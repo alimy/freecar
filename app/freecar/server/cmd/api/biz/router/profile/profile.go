@@ -3,7 +3,7 @@
 package profile
 
 import (
-	profile "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/handler/profile"
+	profile "github.com/alimy/freecar/app/api/biz/handler/profile"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

@@ -3,7 +3,7 @@
 package trip
 
 import (
-	trip "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/handler/trip"
+	trip "github.com/alimy/freecar/app/api/biz/handler/trip"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

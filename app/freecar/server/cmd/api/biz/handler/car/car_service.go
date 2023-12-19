@@ -6,12 +6,12 @@ import (
 	"context"
 	"net/http"
 
-	hcar "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/model/car"
-	"github.com/CyanAsterisk/FreeCar/server/cmd/api/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	kcar "github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/car"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
+	hcar "github.com/alimy/freecar/app/api/biz/model/car"
+	"github.com/alimy/freecar/app/api/config"
+	kcar "github.com/alimy/freecar/idle/auto/rpc/car"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/tools"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 )

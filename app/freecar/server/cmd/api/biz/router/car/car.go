@@ -3,7 +3,7 @@
 package car
 
 import (
-	car "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/handler/car"
+	car "github.com/alimy/freecar/app/api/biz/handler/car"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

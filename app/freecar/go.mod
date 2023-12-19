@@ -1,4 +1,4 @@
-module github.com/CyanAsterisk/FreeCar
+module github.com/alimy/freecar/app/api
 
 go 1.18
 

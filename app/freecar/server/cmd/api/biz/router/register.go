@@ -3,11 +3,11 @@
 package router
 
 import (
-	car "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/router/car"
-	gpt "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/router/gpt"
-	profile "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/router/profile"
-	trip "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/router/trip"
-	user "github.com/CyanAsterisk/FreeCar/server/cmd/api/biz/router/user"
+	car "github.com/alimy/freecar/app/api/biz/router/car"
+	gpt "github.com/alimy/freecar/app/api/biz/router/gpt"
+	profile "github.com/alimy/freecar/app/api/biz/router/profile"
+	trip "github.com/alimy/freecar/app/api/biz/router/trip"
+	user "github.com/alimy/freecar/app/api/biz/router/user"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

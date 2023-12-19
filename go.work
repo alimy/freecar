@@ -9,6 +9,7 @@ use (
 	./app/trip
 	./app/user
 	./app/web-api
+	./library/core
 )
 
 replace (

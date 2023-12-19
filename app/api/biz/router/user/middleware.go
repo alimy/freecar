@@ -3,20 +3,54 @@
 package user
 
 import (
+	"github.com/alimy/freecar/app/api/biz/router/common"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
 func rootMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return common.CommonMW()
 }
 
 func _adminMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.Admin),
+	}
+}
+
+func _userMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
 
-func _userMw() []app.HandlerFunc {
+func _loginMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _login0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _getuserinfoMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _passwordMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.Admin),
+	}
+}
+
+func _user0Mw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.User),
+	}
+}
+
+func _updateuserinfoMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -46,22 +80,7 @@ func _adminupdateuserMw() []app.HandlerFunc {
 	return nil
 }
 
-func _loginMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
 func _adminloginMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _login0Mw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _passwordMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -71,22 +90,7 @@ func _adminchangepasswordMw() []app.HandlerFunc {
 	return nil
 }
 
-func _user0Mw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
 func _uploadavatarMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _getuserinfoMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _updateuserinfoMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

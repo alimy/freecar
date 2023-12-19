@@ -3,8 +3,8 @@ package initialize
 import (
 	"fmt"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/car/config"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/trip/tripservice"
+	"github.com/alimy/freecar/app/api/cmd/car/config"
+	"github.com/alimy/freecar/idle/auto/rpc/trip/tripservice"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"

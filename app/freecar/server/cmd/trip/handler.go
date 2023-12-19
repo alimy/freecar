@@ -6,14 +6,14 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/CyanAsterisk/FreeCar/server/cmd/trip/pkg/mongo"
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/base"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/trip"
-	"github.com/CyanAsterisk/FreeCar/server/shared/mongo/objid"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
+	"github.com/alimy/freecar/app/api/cmd/trip/pkg/mongo"
+	"github.com/alimy/freecar/idle/auto/rpc/base"
+	"github.com/alimy/freecar/idle/auto/rpc/trip"
+	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/cor/mongo/objid"
+	"github.com/alimy/freecar/library/cor/tools"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 

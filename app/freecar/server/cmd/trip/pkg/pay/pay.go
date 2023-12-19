@@ -2,12 +2,13 @@ package pay
 
 import (
 	"context"
-	"github.com/CyanAsterisk/FreeCar/server/shared/errno"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/user"
-	"github.com/CyanAsterisk/FreeCar/server/shared/tools"
 
-	"github.com/CyanAsterisk/FreeCar/server/shared/id"
-	"github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen/user/userservice"
+	"github.com/alimy/freecar/idle/auto/rpc/user"
+	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/cor/tools"
+
+	"github.com/alimy/freecar/idle/auto/rpc/user/userservice"
+	"github.com/alimy/freecar/library/cor/id"
 )
 
 // Manager defines a car manager.

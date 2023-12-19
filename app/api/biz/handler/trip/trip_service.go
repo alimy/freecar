@@ -4,121 +4,191 @@ package trip
 
 import (
 	"context"
+	"net/http"
 
-	base "github.com/alimy/freecar/app/api/biz/model/base"
-	trip "github.com/alimy/freecar/app/api/biz/model/trip"
+	htrip "github.com/alimy/freecar/app/api/biz/model/trip"
+	"github.com/alimy/freecar/app/api/config"
+	"github.com/alimy/freecar/app/api/pkg"
+	kbase "github.com/alimy/freecar/idle/auto/rpc/base"
+	ktrip "github.com/alimy/freecar/idle/auto/rpc/trip"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 )
 
-// DeleteTrip .
-// @router /admin/trip [DELETE]
 func DeleteTrip(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req trip.DeleteTripRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req htrip.DeleteTripRequest
+	resp := new(ktrip.DeleteTripResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalTripClient.DeleteTrip(ctx, &ktrip.DeleteTripRequest{Id: req.ID})
+	if err != nil {
+		hlog.Error("rpc trip service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetAllTrips .
-// @router /admin/trip/all [GET]
+// @router /trip/admin/all [GET]
 func GetAllTrips(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req trip.GetAllTripsRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req htrip.GetAllTripsRequest
+	resp := new(ktrip.GetAllTripsResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalTripClient.GetAllTrips(ctx, &ktrip.GetAllTripsRequest{})
+	if err != nil {
+		hlog.Error("rpc trip service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetSomeTrips .
-// @router /admin/trip/some [GET]
+// @router /trip/admin/some [GET]
 func GetSomeTrips(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req trip.GetSomeTripsRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req htrip.GetSomeTripsRequest
+	resp := new(ktrip.GetSomeTripsResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalTripClient.GetSomeTrips(ctx, &ktrip.GetSomeTripsRequest{})
+	if err != nil {
+		hlog.Error("rpc trip service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // CreateTrip .
-// @router /trip [POST]
+// @router /trip/mini/trip [POST]
 func CreateTrip(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req trip.CreateTripRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req htrip.CreateTripRequest
+	resp := new(ktrip.CreateTripResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalTripClient.CreateTrip(ctx, &ktrip.CreateTripRequest{
+		Start:     pkg.ConvertTripLocation(req.Start),
+		CarId:     req.CarID,
+		AvatarUrl: req.AvatarURL,
+		AccountId: c.MustGet(consts.AccountID).(string),
+	})
+	if err != nil {
+		hlog.Error("rpc trip service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetTrip .
-// @router /trip [GET]
+// @router /trip/mini/trip [GET]
 func GetTrip(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req trip.GetTripRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req htrip.GetTripRequest
+	resp := new(ktrip.GetTripResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalTripClient.GetTrip(ctx, &ktrip.GetTripRequest{
+		Id:        req.ID,
+		AccountId: c.MustGet(consts.AccountID).(string),
+	})
+	if err != nil {
+		hlog.Error("rpc trip service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetTrips .
-// @router /trips [GET]
+// @router /trip/mini/trips [GET]
 func GetTrips(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req trip.GetTripsRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req htrip.GetTripsRequest
+	resp := new(ktrip.GetTripsResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalTripClient.GetTrips(ctx, &ktrip.GetTripsRequest{
+		Status:    kbase.TripStatus(req.Status),
+		AccountId: c.MustGet(consts.AccountID).(string),
+	})
+	if err != nil {
+		hlog.Error("rpc trip service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // UpdateTrip .
 // @router /trip [PUT]
 func UpdateTrip(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req trip.UpdateTripRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req htrip.UpdateTripRequest
+	resp := new(ktrip.UpdateTripResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalTripClient.UpdateTrip(ctx, &ktrip.UpdateTripRequest{
+		Id:        req.ID,
+		Current:   (*kbase.Location)(req.Current),
+		EndTrip:   req.EndTrip,
+		AccountId: c.MustGet(consts.AccountID).(string),
+	})
+	if err != nil {
+		hlog.Error("rpc trip service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }

@@ -3,30 +3,43 @@
 package profile
 
 import (
+	"github.com/alimy/freecar/app/api/biz/router/common"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
 func rootMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return common.CommonMW()
 }
 
 func _profileMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.User),
+	}
+}
+
+func _adminMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.Admin),
+	}
+}
+
+func _checkprofileMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
 
-func _getprofileMw() []app.HandlerFunc {
+func _getpendingprofileMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _getsomeprofileMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
 
 func _completeprofilephotoMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _createprofilephotoMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -41,22 +54,29 @@ func _getprofilephotoMw() []app.HandlerFunc {
 	return nil
 }
 
-func _submitprofileMw() []app.HandlerFunc {
+func _createprofilephotoMw() []app.HandlerFunc {
 	// your code...
 	return nil
+}
+
+func _submitprofileMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.User),
+	}
 }
 
 func _clearprofileMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _adminMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		common.PasetoAuth(consts.User),
+	}
 }
 
 func _profile0Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _getprofileMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -67,21 +87,6 @@ func _deleteprofileMw() []app.HandlerFunc {
 }
 
 func _getallprofileMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _checkprofileMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _getpendingprofileMw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _getsomeprofileMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

@@ -40,13 +40,13 @@ FreeCar 是一个基于 [Hertz](https://github.com/cloudwego/hertz) 与 [Kitex](
 
 ### 小程序端
 
-小程序端地址 [FreeCar-MP](https://github.com/CyanAsterisk/FreeCar-MP)
+小程序端地址 [FreeCar-MP](https://github.com/alimy/freecar/app/api-MP)
 
 ![display.png](img/display.png)
 
 ### 后台管理系统
 
-后台管理系统地址 [FreeCar-Admin](https://github.com/CyanAsterisk/FreeCar-Admin)
+后台管理系统地址 [FreeCar-Admin](https://github.com/alimy/freecar/app/api-Admin)
 
 ![data-analize.png](img/data-analize.png)
 
@@ -185,13 +185,13 @@ service UserService {
 IDL 路径。
 
 ```shell
-kitex -module github.com/CyanAsterisk/FreeCar ./../idl/rpc/user.thrift
-kitex -service user -module github.com/CyanAsterisk/FreeCar -use github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen  ./../../idl/rpc/user.thrift
+kitex -module github.com/alimy/freecar/app/api ./../idl/rpc/user.thrift
+kitex -service user -module github.com/alimy/freecar/app/api -use github.com/alimy/freecar/idle/auto/rpc  ./../../idl/rpc/user.thrift
 ```
 
 注意项：
 
-- 用 `-module github.com/CyanAsterisk/FreeCar` 该参数用于指定生成代码所属的 Go 模块，避免路径问题。
+- 用 `-module github.com/alimy/freecar/app/api` 该参数用于指定生成代码所属的 Go 模块，避免路径问题。
 - 当前服务需要调用其他服务时需依赖 `kitex_gen`。
 
 #### Hertz
@@ -199,12 +199,12 @@ kitex -service user -module github.com/CyanAsterisk/FreeCar -use github.com/Cyan
 ##### 初始化
 
 ```shell
-hz new -idl ./../../idl/api.proto -mod github.com/CyanAsterisk/FreeCar/server/cmd/api
+hz new -idl ./../../idl/api.proto -mod github.com/alimy/freecar/app/api
 ```
 
 注意项：
 
-- 用 `-module github.com/CyanAsterisk/FreeCar/server/cmd/api` 该参数用于指定生成代码所属的 Go 模块，避免路径问题。
+- 用 `-module github.com/alimy/freecar/app/api` 该参数用于指定生成代码所属的 Go 模块，避免路径问题。
 
 ### 业务开发
 

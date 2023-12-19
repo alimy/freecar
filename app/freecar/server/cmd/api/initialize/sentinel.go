@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"github.com/CyanAsterisk/FreeCar/server/shared/consts"
 	sentinel "github.com/alibaba/sentinel-golang/api"
 	"github.com/alibaba/sentinel-golang/core/flow"
+	"github.com/alimy/freecar/library/cor/consts"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 )
 

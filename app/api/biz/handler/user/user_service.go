@@ -4,185 +4,287 @@ package user
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 
-	base "github.com/alimy/freecar/app/api/biz/model/base"
-	user "github.com/alimy/freecar/app/api/biz/model/user"
+	huser "github.com/alimy/freecar/app/api/biz/model/user"
+	"github.com/alimy/freecar/app/api/config"
+	kuser "github.com/alimy/freecar/idle/auto/rpc/user"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 )
-
-// Login .
-// @router /login/user [POST]
-func Login(ctx context.Context, c *app.RequestContext) {
-	var err error
-	var req user.LoginRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
-		return
-	}
-
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
-}
 
 // AdminLogin .
 // @router /login/admin [POST]
 func AdminLogin(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.AdminLoginRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.AdminLoginRequest
+	resp := new(kuser.AdminLoginResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.AdminLogin(ctx, &kuser.AdminLoginRequest{
+		Username: req.Username,
+		Password: req.Password,
+	})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminChangePassword .
-// @router /password/admin [POST]
+// @router /admin/user/password [POST]
 func AdminChangePassword(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.AdminChangePasswordRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.AdminChangePasswordRequest
+	resp := new(kuser.ChangeAdminPasswordResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.ChangeAdminPassword(ctx, &kuser.ChangeAdminPasswordRequest{
+		AccountId:    c.MustGet(consts.AccountID).(string),
+		OldPassword:  req.OldPassword,
+		NewPassword_: req.NewPassword,
+	})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminAddUser .
-// @router /admin/user [POST]
+// @router /admin/user/user [POST]
 func AdminAddUser(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.AddUserRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.AddUserRequest
+	resp := new(kuser.AddUserResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.AddUser(ctx, &kuser.AddUserRequest{
+		AccountId:    req.AccountID,
+		Username:     req.Username,
+		PhoneNumber:  req.PhoneNumber,
+		AvatarBlobId: req.AvatarBlobID,
+		OpenId:       req.OpenID,
+	})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminDeleteUser .
-// @router /admin/user [DELETE]
+// @router /admin/user/user [DELETE]
 func AdminDeleteUser(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.DeleteUserRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.DeleteUserRequest
+	resp := new(kuser.DeleteUserResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.DeleteUser(ctx, &kuser.DeleteUserRequest{AccountId: req.AccountID})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminUpdateUser .
-// @router /admin/user [PUT]
+// @router /admin/user/user [POST]
 func AdminUpdateUser(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.UpdateUserRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.UpdateUserRequest
+	resp := new(kuser.UpdateUserResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.UpdateUser(ctx, &kuser.UpdateUserRequest{
+		AccountId:   req.AccountID,
+		Username:    req.Username,
+		PhoneNumber: req.PhoneNumber,
+		AvatarUrl:   req.AvatarURL,
+	})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminGetSomeUsers .
 // @router /admin/user/some [GET]
 func AdminGetSomeUsers(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.GetSomeUsersRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.GetSomeUsersRequest
+	resp := new(kuser.GetSomeUsersResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.GetSomeUsers(ctx, &kuser.GetSomeUsersRequest{})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // AdminGetAllUsers .
 // @router /admin/user/all [GET]
 func AdminGetAllUsers(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.GetAllUsersRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.GetAllUsersRequest
+	resp := new(kuser.GetAllUsersResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
+	res, err := config.GlobalUserClient.GetAllUsers(ctx, &kuser.GetAllUsersRequest{})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
+}
 
-	c.JSON(consts.StatusOK, resp)
+// Login .
+// @router /login/user [POST]
+func Login(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req huser.LoginRequest
+	resp := new(kuser.LoginResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
+		return
+	}
+	res, err := config.GlobalUserClient.Login(ctx, &kuser.LoginRequest{Code: req.Code})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // UploadAvatar .
-// @router /user/avatar [POST]
+// @router /mini/user/avatar [POST]
 func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.UploadAvatarRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.UploadAvatarRequest
+	resp := new(kuser.UploadAvatarResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.UploadAvatar(ctx, &kuser.UploadAvatarRequset{AccountId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // GetUserInfo .
-// @router /user/info [GET]
+// @router /mini/user/info [GET]
 func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.GetUserInfoRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.GetUserInfoRequest
+	resp := new(kuser.GetUserInfoResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.GetUser(ctx, &kuser.GetUserRequest{AccontId: c.MustGet(consts.AccountID).(string)})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	fmt.Println(res)
+	c.JSON(http.StatusOK, res)
 }
 
 // UpdateUserInfo .
 // @router /user/info [PUT]
 func UpdateUserInfo(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req user.UpdateUserRequest
-	err = c.BindAndValidate(&req)
-	if err != nil {
-		c.String(consts.StatusBadRequest, err.Error())
+	var req huser.UpdateUserRequest
+	resp := new(kuser.UpdateUserResponse)
+
+	if err = c.BindAndValidate(&req); err != nil {
+		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
-	resp := new(base.NilResponse)
-
-	c.JSON(consts.StatusOK, resp)
+	res, err := config.GlobalUserClient.UpdateUser(ctx, &kuser.UpdateUserRequest{
+		AccountId:   c.MustGet(consts.AccountID).(string),
+		Username:    req.Username,
+		PhoneNumber: req.PhoneNumber,
+		AvatarUrl:   req.AvatarURL,
+	})
+	if err != nil {
+		hlog.Error("rpc user service err", err)
+		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		c.JSON(http.StatusInternalServerError, resp)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }

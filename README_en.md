@@ -40,13 +40,13 @@ FreeCar is a cloud-native time-sharing car rental system suite based on [Hertz](
 
 ### Mini Program
 
-Mini program project address [FreeCar-MP](https://github.com/CyanAsterisk/FreeCar-MP)
+Mini program project address [FreeCar-MP](https://github.com/alimy/freecar/app/api-MP)
 
 ![display.png](img/display.png)
 
 ### Admin
 
-Admin project address [FreeCar-Admin](https://github.com/CyanAsterisk/FreeCar-Admin)
+Admin project address [FreeCar-Admin](https://github.com/alimy/freecar/app/api-Admin)
 
 ![data-analize.png](img/data-analize.png)
 
@@ -185,13 +185,13 @@ First generate `kitex_gen` in the `shared` folder, and then rely on `kitex_gen` 
 generate. Execute under the new service directory, only need to change the service name and IDL path each time.
 
 ```shell
-kitex -module github.com/CyanAsterisk/FreeCar ./../idl/rpc/user.thrift
-kitex -service user -module github.com/CyanAsterisk/FreeCar -use github.com/CyanAsterisk/FreeCar/server/shared/kitex_gen ./../../idl/rpc/user.thrift
+kitex -module github.com/alimy/freecar/app/api ./../idl/rpc/user.thrift
+kitex -service user -module github.com/alimy/freecar/app/api -use github.com/alimy/freecar/idle/auto/rpc ./../../idl/rpc/user.thrift
 ```
 
 Note:
 
-- Use `-module github.com/CyanAsterisk/FreeCar` This parameter is used to specify the Go module to which the generated
+- Use `-module github.com/alimy/freecar/app/api` This parameter is used to specify the Go module to which the generated
   code belongs to avoid path problems.
 - When the current service needs to call other services, it needs to rely on `kitex_gen`.
 
@@ -200,12 +200,12 @@ Note:
 ##### Initialize
 
 ```shell
-hz new -idl ./../../idl/api.proto -mod github.com/CyanAsterisk/FreeCar/server/cmd/api
+hz new -idl ./../../idl/api.proto -mod github.com/alimy/freecar/app/api
 ```
 
 Note:
 
-- Use `-module github.com/CyanAsterisk/FreeCar/server/cmd/api` This parameter is used to specify the Go module to which
+- Use `-module github.com/alimy/freecar/app/api` This parameter is used to specify the Go module to which
   the generated code belongs to avoid path problems.
 
 ### Business Development
