@@ -8,6 +8,7 @@ use (
 	./app/profile
 	./app/trip
 	./app/user
+	./app/web-api
 )
 
 replace (
