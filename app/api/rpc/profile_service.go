@@ -30,7 +30,7 @@ func initProfile() {
 	)
 
 	// create a new client
-	c, err := profileservice.NewClient(
+	ProfileSvc, err = profileservice.NewClient(
 		config.GlobalServerConfig.ProfileSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
@@ -41,5 +41,4 @@ func initProfile() {
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)
 	}
-	config.GlobalProfileClient = c
 }

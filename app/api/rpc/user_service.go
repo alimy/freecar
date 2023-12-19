@@ -30,7 +30,7 @@ func initUser() {
 	)
 
 	// create a new client
-	c, err := userservice.NewClient(
+	UserSvc, err = userservice.NewClient(
 		config.GlobalServerConfig.UserSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
@@ -41,5 +41,4 @@ func initUser() {
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)
 	}
-	config.GlobalUserClient = c
 }

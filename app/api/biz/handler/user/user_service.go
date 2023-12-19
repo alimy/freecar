@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	huser "github.com/alimy/freecar/app/api/biz/model/user"
-	"github.com/alimy/freecar/app/api/config"
+	"github.com/alimy/freecar/app/api/rpc"
 	kuser "github.com/alimy/freecar/idle/auto/rpc/user"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/alimy/freecar/library/core/errno"
@@ -30,7 +30,7 @@ func AdminLogin(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalUserClient.AdminLogin(ctx, &kuser.AdminLoginRequest{
+	res, err := rpc.UserSvc.AdminLogin(ctx, &kuser.AdminLoginRequest{
 		Username: req.Username,
 		Password: req.Password,
 	})
@@ -55,7 +55,7 @@ func AdminChangePassword(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-	res, err := config.GlobalUserClient.ChangeAdminPassword(ctx, &kuser.ChangeAdminPasswordRequest{
+	res, err := rpc.UserSvc.ChangeAdminPassword(ctx, &kuser.ChangeAdminPasswordRequest{
 		AccountId:    c.MustGet(consts.AccountID).(string),
 		OldPassword:  req.OldPassword,
 		NewPassword_: req.NewPassword,
@@ -82,7 +82,7 @@ func AdminAddUser(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalUserClient.AddUser(ctx, &kuser.AddUserRequest{
+	res, err := rpc.UserSvc.AddUser(ctx, &kuser.AddUserRequest{
 		AccountId:    req.AccountID,
 		Username:     req.Username,
 		PhoneNumber:  req.PhoneNumber,
@@ -110,7 +110,7 @@ func AdminDeleteUser(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-	res, err := config.GlobalUserClient.DeleteUser(ctx, &kuser.DeleteUserRequest{AccountId: req.AccountID})
+	res, err := rpc.UserSvc.DeleteUser(ctx, &kuser.DeleteUserRequest{AccountId: req.AccountID})
 	if err != nil {
 		hlog.Error("rpc user service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -132,7 +132,7 @@ func AdminUpdateUser(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-	res, err := config.GlobalUserClient.UpdateUser(ctx, &kuser.UpdateUserRequest{
+	res, err := rpc.UserSvc.UpdateUser(ctx, &kuser.UpdateUserRequest{
 		AccountId:   req.AccountID,
 		Username:    req.Username,
 		PhoneNumber: req.PhoneNumber,
@@ -159,7 +159,7 @@ func AdminGetSomeUsers(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-	res, err := config.GlobalUserClient.GetSomeUsers(ctx, &kuser.GetSomeUsersRequest{})
+	res, err := rpc.UserSvc.GetSomeUsers(ctx, &kuser.GetSomeUsersRequest{})
 	if err != nil {
 		hlog.Error("rpc user service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -182,7 +182,7 @@ func AdminGetAllUsers(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalUserClient.GetAllUsers(ctx, &kuser.GetAllUsersRequest{})
+	res, err := rpc.UserSvc.GetAllUsers(ctx, &kuser.GetAllUsersRequest{})
 	if err != nil {
 		hlog.Error("rpc user service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -204,7 +204,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-	res, err := config.GlobalUserClient.Login(ctx, &kuser.LoginRequest{Code: req.Code})
+	res, err := rpc.UserSvc.Login(ctx, &kuser.LoginRequest{Code: req.Code})
 	if err != nil {
 		hlog.Error("rpc user service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -227,7 +227,7 @@ func UploadAvatar(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalUserClient.UploadAvatar(ctx, &kuser.UploadAvatarRequset{AccountId: c.MustGet(consts.AccountID).(string)})
+	res, err := rpc.UserSvc.UploadAvatar(ctx, &kuser.UploadAvatarRequset{AccountId: c.MustGet(consts.AccountID).(string)})
 	if err != nil {
 		hlog.Error("rpc user service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -250,7 +250,7 @@ func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalUserClient.GetUser(ctx, &kuser.GetUserRequest{AccontId: c.MustGet(consts.AccountID).(string)})
+	res, err := rpc.UserSvc.GetUser(ctx, &kuser.GetUserRequest{AccontId: c.MustGet(consts.AccountID).(string)})
 	if err != nil {
 		hlog.Error("rpc user service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -274,7 +274,7 @@ func UpdateUserInfo(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalUserClient.UpdateUser(ctx, &kuser.UpdateUserRequest{
+	res, err := rpc.UserSvc.UpdateUser(ctx, &kuser.UpdateUserRequest{
 		AccountId:   c.MustGet(consts.AccountID).(string),
 		Username:    req.Username,
 		PhoneNumber: req.PhoneNumber,

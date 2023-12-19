@@ -30,7 +30,7 @@ func initCar() {
 	)
 
 	// create a new client
-	c, err := carservice.NewClient(
+	CarSvc, err = carservice.NewClient(
 		config.GlobalServerConfig.CarSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
@@ -41,5 +41,4 @@ func initCar() {
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)
 	}
-	config.GlobalCarClient = c
 }

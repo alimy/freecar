@@ -1,34 +1,51 @@
 package config
 
-type PasetoConfig struct {
-	PubKey   string `mapstructure:"pub_key" json:"pub_key"`
-	Implicit string `mapstructure:"implicit" json:"implicit"`
-}
+import (
+	"net"
+	"strconv"
 
-type ConsulConfig struct {
-	Host string `mapstructure:"host" json:"host"`
-	Port int    `mapstructure:"port" json:"port"`
-	Key  string `mapstructure:"key" json:"key"`
-}
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/utils"
+	"github.com/bytedance/sonic"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
+	"github.com/hashicorp/consul/api"
+	"github.com/spf13/viper"
+)
 
-type OtelConfig struct {
-	EndPoint string `mapstructure:"endpoint" json:"endpoint"`
-}
+// Initial to init consul config server
+func Initial() {
+	v := viper.New()
+	v.SetConfigFile(consts.ApiConfigPath)
+	if err := v.ReadInConfig(); err != nil {
+		hlog.Fatalf("read viper config failed: %s", err.Error())
+	}
+	if err := v.Unmarshal(&GlobalConsulConfig); err != nil {
+		hlog.Fatalf("unmarshal err failed: %s", err.Error())
+	}
+	hlog.Infof("Config Info: %v", GlobalConsulConfig)
 
-type ServerConfig struct {
-	Name           string       `mapstructure:"name" json:"name"`
-	Host           string       `mapstructure:"host" json:"host"`
-	Port           int          `mapstructure:"port" json:"port"`
-	GPTKey         string       `mapstructure:"gpt" json:"gpt"`
-	ProxyURL       string       `mapstructure:"proxy" json:"proxy"`
-	PasetoInfo     PasetoConfig `mapstructure:"paseto" json:"paseto"`
-	OtelInfo       OtelConfig   `mapstructure:"otel" json:"otel"`
-	UserSrvInfo    RPCSrvConfig `mapstructure:"user_srv" json:"user_srv"`
-	CarSrvInfo     RPCSrvConfig `mapstructure:"car_srv" json:"car_srv"`
-	ProfileSrvInfo RPCSrvConfig `mapstructure:"profile_srv" json:"profile_srv"`
-	TripSrvInfo    RPCSrvConfig `mapstructure:"trip_srv" json:"trip_srv"`
-}
+	cfg := api.DefaultConfig()
+	cfg.Address = net.JoinHostPort(
+		GlobalConsulConfig.Host,
+		strconv.Itoa(GlobalConsulConfig.Port))
+	consulClient, err := api.NewClient(cfg)
+	if err != nil {
+		hlog.Fatalf("new consul client failed: %s", err.Error())
+	}
+	content, _, err := consulClient.KV().Get(GlobalConsulConfig.Key, nil)
+	if err != nil {
+		hlog.Fatalf("consul kv failed: %s", err.Error())
+	}
 
-type RPCSrvConfig struct {
-	Name string `mapstructure:"name" json:"name"`
+	err = sonic.Unmarshal(content.Value, &GlobalServerConfig)
+	if err != nil {
+		hlog.Fatalf("sonic unmarshal config failed: %s", err.Error())
+	}
+
+	if GlobalServerConfig.Host == "" {
+		GlobalServerConfig.Host, err = utils.GetLocalIPv4Address()
+		if err != nil {
+			hlog.Fatalf("get localIpv4Addr failed:%s", err.Error())
+		}
+	}
 }

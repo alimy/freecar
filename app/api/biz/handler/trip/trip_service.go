@@ -7,8 +7,8 @@ import (
 	"net/http"
 
 	htrip "github.com/alimy/freecar/app/api/biz/model/trip"
-	"github.com/alimy/freecar/app/api/config"
 	"github.com/alimy/freecar/app/api/pkg"
+	"github.com/alimy/freecar/app/api/rpc"
 	kbase "github.com/alimy/freecar/idle/auto/rpc/base"
 	ktrip "github.com/alimy/freecar/idle/auto/rpc/trip"
 	"github.com/alimy/freecar/library/core/consts"
@@ -29,7 +29,7 @@ func DeleteTrip(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalTripClient.DeleteTrip(ctx, &ktrip.DeleteTripRequest{Id: req.ID})
+	res, err := rpc.TripSvc.DeleteTrip(ctx, &ktrip.DeleteTripRequest{Id: req.ID})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -52,7 +52,7 @@ func GetAllTrips(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalTripClient.GetAllTrips(ctx, &ktrip.GetAllTripsRequest{})
+	res, err := rpc.TripSvc.GetAllTrips(ctx, &ktrip.GetAllTripsRequest{})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -75,7 +75,7 @@ func GetSomeTrips(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalTripClient.GetSomeTrips(ctx, &ktrip.GetSomeTripsRequest{})
+	res, err := rpc.TripSvc.GetSomeTrips(ctx, &ktrip.GetSomeTripsRequest{})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
 		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
@@ -98,7 +98,7 @@ func CreateTrip(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalTripClient.CreateTrip(ctx, &ktrip.CreateTripRequest{
+	res, err := rpc.TripSvc.CreateTrip(ctx, &ktrip.CreateTripRequest{
 		Start:     pkg.ConvertTripLocation(req.Start),
 		CarId:     req.CarID,
 		AvatarUrl: req.AvatarURL,
@@ -126,7 +126,7 @@ func GetTrip(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalTripClient.GetTrip(ctx, &ktrip.GetTripRequest{
+	res, err := rpc.TripSvc.GetTrip(ctx, &ktrip.GetTripRequest{
 		Id:        req.ID,
 		AccountId: c.MustGet(consts.AccountID).(string),
 	})
@@ -152,7 +152,7 @@ func GetTrips(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalTripClient.GetTrips(ctx, &ktrip.GetTripsRequest{
+	res, err := rpc.TripSvc.GetTrips(ctx, &ktrip.GetTripsRequest{
 		Status:    kbase.TripStatus(req.Status),
 		AccountId: c.MustGet(consts.AccountID).(string),
 	})
@@ -178,7 +178,7 @@ func UpdateTrip(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	res, err := config.GlobalTripClient.UpdateTrip(ctx, &ktrip.UpdateTripRequest{
+	res, err := rpc.TripSvc.UpdateTrip(ctx, &ktrip.UpdateTripRequest{
 		Id:        req.ID,
 		Current:   (*kbase.Location)(req.Current),
 		EndTrip:   req.EndTrip,
