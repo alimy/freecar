@@ -14,7 +14,7 @@ import (
 	"github.com/alimy/freecar/app/api/internal"
 	"github.com/alimy/freecar/app/api/rpc"
 	"github.com/alimy/freecar/library/core/errno"
-	"github.com/alimy/freecar/library/core/tools"
+	"github.com/alimy/freecar/library/core/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	cfg "github.com/hertz-contrib/http2/config"
@@ -69,9 +69,9 @@ func customizedRegister(r *server.Hertz) {
 
 	// your code ...
 	r.NoRoute(func(ctx context.Context, c *app.RequestContext) { // used for HTTP 404
-		c.JSON(http.StatusNotFound, tools.BuildBaseResp(errno.NoRoute))
+		c.JSON(http.StatusNotFound, utils.BuildBaseResp(errno.NoRoute))
 	})
 	r.NoMethod(func(ctx context.Context, c *app.RequestContext) { // used for HTTP 405
-		c.JSON(http.StatusMethodNotAllowed, tools.BuildBaseResp(errno.NoMethod))
+		c.JSON(http.StatusMethodNotAllowed, utils.BuildBaseResp(errno.NoMethod))
 	})
 }

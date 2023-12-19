@@ -11,7 +11,7 @@ import (
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/alimy/freecar/library/core/errno"
 	"github.com/alimy/freecar/library/core/id"
-	"github.com/alimy/freecar/library/core/tools"
+	"github.com/alimy/freecar/library/core/utils"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 
@@ -53,14 +53,14 @@ func (s *carSrv) CreateCar(ctx context.Context, req *car.CreateCarRequest) (resp
 	cr, err := s.MongoManager.CreateCar(ctx, req.PlateNum)
 	if err != nil {
 		klog.Error("create car err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("create car err"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("create car err"))
 		return resp, nil
 	}
 	resp.CarEntity = &base.CarEntity{
 		Id:  cr.ID.Hex(),
 		Car: cr.Car,
 	}
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -78,14 +78,14 @@ func (s *carSrv) GetCar(ctx context.Context, req *car.GetCarRequest) (resp *car.
 	cr, err := s.MongoManager.GetCar(ctx, id.CarID(req.Id))
 	if err != nil {
 		klog.Errorf("get car err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("get car error"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("get car error"))
 		return resp, nil
 	}
 	if err := s.RedisManager.InsertCar(context.Background(), id.CarID(cr.ID.Hex()), cr.Car); err != nil {
 		klog.Errorf("create cache record err", err)
 	}
 	resp.Car = cr.Car
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -95,7 +95,7 @@ func (s *carSrv) GetCars(ctx context.Context, _ *car.GetCarsRequest) (resp *car.
 	cars, err := s.MongoManager.GetCars(ctx, math.MaxInt64)
 	if err != nil {
 		klog.Errorf("cannot get cars: %s", err.Error())
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("get cars err"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("get cars err"))
 		return resp, nil
 	}
 
@@ -105,7 +105,7 @@ func (s *carSrv) GetCars(ctx context.Context, _ *car.GetCarsRequest) (resp *car.
 			Car: cr.Car,
 		})
 	}
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -114,7 +114,7 @@ func (s *carSrv) LockCar(ctx context.Context, req *car.LockCarRequest) (resp *ca
 	resp = new(car.LockCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove car cache err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("lock car err"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("lock car err"))
 		return resp, nil
 	}
 	c, err := s.MongoManager.UpdateCar(ctx, id.CarID(req.Id), base.CarStatus_UNLOCKED, &mongo.CarUpdate{
@@ -122,12 +122,12 @@ func (s *carSrv) LockCar(ctx context.Context, req *car.LockCarRequest) (resp *ca
 	})
 	if err != nil {
 		klog.Errorf("update car error", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("update car error"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("update car error"))
 		return resp, nil
 	}
 	s.publish(ctx, c)
 
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -136,7 +136,7 @@ func (s *carSrv) UnlockCar(ctx context.Context, req *car.UnlockCarRequest) (resp
 	resp = new(car.UnlockCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error")
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("remove cache error"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("remove cache error"))
 		return resp, nil
 	}
 	cr, err := s.MongoManager.UpdateCar(ctx, id.CarID(req.Id), base.CarStatus_LOCKED, &mongo.CarUpdate{
@@ -147,11 +147,11 @@ func (s *carSrv) UnlockCar(ctx context.Context, req *car.UnlockCarRequest) (resp
 	})
 	if err != nil {
 		klog.Error("update car error", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("update car error"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("update car error"))
 		return resp, nil
 	}
 	s.publish(ctx, cr)
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -160,7 +160,7 @@ func (s *carSrv) UpdateCar(ctx context.Context, req *car.UpdateCarRequest) (resp
 	resp = new(car.UpdateCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error")
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr)
 		return resp, nil
 	}
 	update := &mongo.CarUpdate{
@@ -176,7 +176,7 @@ func (s *carSrv) UpdateCar(ctx context.Context, req *car.UpdateCarRequest) (resp
 	cr, err := s.MongoManager.UpdateCar(ctx, id.CarID(req.Id), base.CarStatus_CS_NOT_SPECIFIED, update)
 	if err != nil {
 		klog.Error("update car err")
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("update car err"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("update car err"))
 		return resp, nil
 	}
 	go func() {
@@ -204,20 +204,20 @@ func (s *carSrv) DeleteCar(ctx context.Context, req *car.DeleteCarRequest) (resp
 	resp = new(car.DeleteCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr)
 		return resp, nil
 	}
 	err = s.MongoManager.DeleteCar(ctx, id.CarID(req.Id))
 	if err != nil {
 		if err == errno.RecordNotFound {
-			resp.BaseResp = tools.BuildBaseResp(errno.RecordNotFound)
+			resp.BaseResp = utils.BuildBaseResp(errno.RecordNotFound)
 		} else {
 			klog.Errorf("delete car err", err)
-			resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("delete car err"))
+			resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("delete car err"))
 		}
 		return resp, nil
 	}
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -226,7 +226,7 @@ func (s *carSrv) AdminUpdateCar(ctx context.Context, req *car.AdminUpdateCarRequ
 	resp = new(car.AdminUpdateCarResponse)
 	if err = s.RedisManager.RemoveCar(ctx, id.CarID(req.Id)); err != nil {
 		klog.Error("remove cache error")
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr)
 		return resp, nil
 	}
 
@@ -244,11 +244,11 @@ func (s *carSrv) AdminUpdateCar(ctx context.Context, req *car.AdminUpdateCarRequ
 	cr, err := s.MongoManager.UpdateCar(ctx, id.CarID(req.Id), base.CarStatus_CS_NOT_SPECIFIED, update)
 	if err != nil {
 		klog.Error("update car err")
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("update car err"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("update car err"))
 		return resp, nil
 	}
 	s.publish(ctx, cr)
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -258,7 +258,7 @@ func (s *carSrv) GetSomeCars(ctx context.Context, req *car.GetSomeCarsRequest) (
 	cars, err := s.MongoManager.GetCars(ctx, consts.LimitOfSomeCars)
 	if err != nil {
 		klog.Errorf("cannot get cars: %s", err.Error())
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("get some cars err"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("get some cars err"))
 		return resp, nil
 	}
 	for _, cr := range cars {
@@ -267,7 +267,7 @@ func (s *carSrv) GetSomeCars(ctx context.Context, req *car.GetSomeCarsRequest) (
 			Car: cr.Car,
 		})
 	}
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }
 
@@ -277,7 +277,7 @@ func (s *carSrv) GetAllCars(ctx context.Context, req *car.GetAllCarsRequest) (re
 	cars, err := s.MongoManager.GetCars(ctx, math.MaxInt64)
 	if err != nil {
 		klog.Errorf("cannot get cars: %s", err.Error())
-		resp.BaseResp = tools.BuildBaseResp(errno.CarSrvErr.WithMessage("get cars err"))
+		resp.BaseResp = utils.BuildBaseResp(errno.CarSrvErr.WithMessage("get cars err"))
 		return resp, nil
 	}
 	for _, cr := range cars {
@@ -286,6 +286,6 @@ func (s *carSrv) GetAllCars(ctx context.Context, req *car.GetAllCarsRequest) (re
 			Car: cr.Car,
 		})
 	}
-	resp.BaseResp = tools.BuildBaseResp(nil)
+	resp.BaseResp = utils.BuildBaseResp(nil)
 	return resp, nil
 }

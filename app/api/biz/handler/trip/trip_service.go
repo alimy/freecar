@@ -13,7 +13,7 @@ import (
 	ktrip "github.com/alimy/freecar/idle/auto/rpc/trip"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/alimy/freecar/library/core/errno"
-	"github.com/alimy/freecar/library/core/tools"
+	"github.com/alimy/freecar/library/core/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 )
@@ -24,7 +24,7 @@ func DeleteTrip(ctx context.Context, c *app.RequestContext) {
 	resp := new(ktrip.DeleteTripResponse)
 
 	if err = c.BindAndValidate(&req); err != nil {
-		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ParamsErr)
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
@@ -32,7 +32,7 @@ func DeleteTrip(ctx context.Context, c *app.RequestContext) {
 	res, err := rpc.TripSvc.DeleteTrip(ctx, &ktrip.DeleteTripRequest{Id: req.ID})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ServiceErr)
 		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}
@@ -47,7 +47,7 @@ func GetAllTrips(ctx context.Context, c *app.RequestContext) {
 	resp := new(ktrip.GetAllTripsResponse)
 
 	if err = c.BindAndValidate(&req); err != nil {
-		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ParamsErr)
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
@@ -55,7 +55,7 @@ func GetAllTrips(ctx context.Context, c *app.RequestContext) {
 	res, err := rpc.TripSvc.GetAllTrips(ctx, &ktrip.GetAllTripsRequest{})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ServiceErr)
 		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}
@@ -70,7 +70,7 @@ func GetSomeTrips(ctx context.Context, c *app.RequestContext) {
 	resp := new(ktrip.GetSomeTripsResponse)
 
 	if err = c.BindAndValidate(&req); err != nil {
-		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ParamsErr)
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
@@ -78,7 +78,7 @@ func GetSomeTrips(ctx context.Context, c *app.RequestContext) {
 	res, err := rpc.TripSvc.GetSomeTrips(ctx, &ktrip.GetSomeTripsRequest{})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ServiceErr)
 		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}
@@ -93,7 +93,7 @@ func CreateTrip(ctx context.Context, c *app.RequestContext) {
 	resp := new(ktrip.CreateTripResponse)
 
 	if err = c.BindAndValidate(&req); err != nil {
-		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ParamsErr)
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
@@ -106,7 +106,7 @@ func CreateTrip(ctx context.Context, c *app.RequestContext) {
 	})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ServiceErr)
 		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}
@@ -121,7 +121,7 @@ func GetTrip(ctx context.Context, c *app.RequestContext) {
 	resp := new(ktrip.GetTripResponse)
 
 	if err = c.BindAndValidate(&req); err != nil {
-		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ParamsErr)
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
@@ -132,7 +132,7 @@ func GetTrip(ctx context.Context, c *app.RequestContext) {
 	})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ServiceErr)
 		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}
@@ -147,7 +147,7 @@ func GetTrips(ctx context.Context, c *app.RequestContext) {
 	resp := new(ktrip.GetTripsResponse)
 
 	if err = c.BindAndValidate(&req); err != nil {
-		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ParamsErr)
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
@@ -158,7 +158,7 @@ func GetTrips(ctx context.Context, c *app.RequestContext) {
 	})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ServiceErr)
 		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}
@@ -173,7 +173,7 @@ func UpdateTrip(ctx context.Context, c *app.RequestContext) {
 	resp := new(ktrip.UpdateTripResponse)
 
 	if err = c.BindAndValidate(&req); err != nil {
-		resp.BaseResp = tools.BuildBaseResp(errno.ParamsErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ParamsErr)
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
@@ -186,7 +186,7 @@ func UpdateTrip(ctx context.Context, c *app.RequestContext) {
 	})
 	if err != nil {
 		hlog.Error("rpc trip service err", err)
-		resp.BaseResp = tools.BuildBaseResp(errno.ServiceErr)
+		resp.BaseResp = utils.BuildBaseResp(errno.ServiceErr)
 		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}

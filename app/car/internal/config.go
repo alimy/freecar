@@ -6,7 +6,7 @@ import (
 
 	"github.com/alimy/freecar/app/car/config"
 	"github.com/alimy/freecar/library/core/consts"
-	"github.com/alimy/freecar/library/core/tools"
+	"github.com/alimy/freecar/library/core/utils"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/hashicorp/consul/api"
@@ -44,7 +44,7 @@ func InitConfig() {
 	}
 
 	if config.GlobalServerConfig.Host == "" {
-		config.GlobalServerConfig.Host, err = tools.GetLocalIPv4Address()
+		config.GlobalServerConfig.Host, err = utils.GetLocalIPv4Address()
 		if err != nil {
 			hlog.Fatalf("get localIpv4Addr failed:%s", err.Error())
 		}

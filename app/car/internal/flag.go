@@ -4,7 +4,7 @@ import (
 	"flag"
 
 	"github.com/alimy/freecar/library/core/consts"
-	"github.com/alimy/freecar/library/core/tools"
+	"github.com/alimy/freecar/library/core/utils"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 
@@ -15,7 +15,7 @@ func InitFlag() (string, int) {
 	// Parsing flags and if Port is 0 , then will automatically get an empty Port.
 	flag.Parse()
 	if *Port == 0 {
-		*Port, _ = tools.GetFreePort()
+		*Port, _ = utils.GetFreePort()
 	}
 	klog.Info("ip: ", *IP)
 	klog.Info("port: ", *Port)
