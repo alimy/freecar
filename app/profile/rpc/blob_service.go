@@ -1,4 +1,4 @@
-package initialize
+package rpc
 
 import (
 	"fmt"
@@ -14,8 +14,8 @@ import (
 	consul "github.com/kitex-contrib/registry-consul"
 )
 
-// InitBlob to init blob service
-func InitBlob() blobservice.Client {
+// initBlob to init blob service
+func initBlob() blobservice.Client {
 	// init resolver
 	r, err := consul.NewConsulResolver(fmt.Sprintf("%s:%d",
 		config.GlobalConsulConfig.Host,

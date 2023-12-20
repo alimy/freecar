@@ -40,7 +40,7 @@ func NewUserService() server.Server {
 		EncryptManager:    &md5.EncryptManager{Salt: config.GlobalServerConfig.MysqlInfo.Salt},
 		UserMysqlManager:  mysql.NewUserManager(db, config.GlobalServerConfig.MysqlInfo.Salt),
 		AdminMysqlManager: mysql.NewAdminManager(db, config.GlobalServerConfig.MysqlInfo.Salt),
-		BlobManager:       rpc.BlobSvc,
+		BlobManager:       rpc.GetBlobService(),
 		TokenGenerator:    tg,
 	}
 	return userservice.NewServer(uss,

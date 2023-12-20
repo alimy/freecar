@@ -5,7 +5,6 @@ import (
 
 	"github.com/alimy/freecar/app/user/config"
 	"github.com/alimy/freecar/app/user/internal"
-	"github.com/alimy/freecar/app/user/rpc"
 	"github.com/alimy/freecar/app/user/servants"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
@@ -14,7 +13,6 @@ import (
 func main() {
 	// initialization
 	internal.Initial()
-	rpc.Initial()
 
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(config.GlobalServerConfig.Name),
