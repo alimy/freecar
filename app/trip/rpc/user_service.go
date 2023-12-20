@@ -1,4 +1,4 @@
-package initialize
+package rpc
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ import (
 	consul "github.com/kitex-contrib/registry-consul"
 )
 
-func InitUser() {
+func initUser() userservice.Client {
 	// init resolver
 	r, err := consul.NewConsulResolver(fmt.Sprintf("%s:%d",
 		config.GlobalConsulConfig.Host,
@@ -41,5 +41,5 @@ func InitUser() {
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)
 	}
-	config.UserClient = c
+	return c
 }

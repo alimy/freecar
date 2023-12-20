@@ -1,10 +1,11 @@
-package initialize
+package rpc
 
 import (
 	"fmt"
 
 	"github.com/alimy/freecar/app/trip/config"
-	"github.com/alimy/freecar/idle/auto/rpc/user/userservice"
+	"github.com/alimy/freecar/idle/auto/rpc/profile/profileservice"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"
@@ -14,32 +15,32 @@ import (
 	consul "github.com/kitex-contrib/registry-consul"
 )
 
-func InitUser() {
+// initProfile to init profile service
+func initProfile() profileservice.Client {
 	// init resolver
 	r, err := consul.NewConsulResolver(fmt.Sprintf("%s:%d",
 		config.GlobalConsulConfig.Host,
 		config.GlobalConsulConfig.Port))
 	if err != nil {
-		klog.Fatalf("new consul client failed: %s", err.Error())
+		hlog.Fatalf("new consul client failed: %s", err.Error())
 	}
 	// init OpenTelemetry
 	provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(config.GlobalServerConfig.UserSrvInfo.Name),
+		provider.WithServiceName(config.GlobalServerConfig.ProfileSrvInfo.Name),
 		provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
 		provider.WithInsecure(),
 	)
-
 	// create a new client
-	c, err := userservice.NewClient(
-		config.GlobalServerConfig.UserSrvInfo.Name,
+	c, err := profileservice.NewClient(
+		config.GlobalServerConfig.ProfileSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
 		client.WithMuxConnection(1),                                // multiplexing
 		client.WithSuite(tracing.NewClientSuite()),
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.UserSrvInfo.Name}),
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.ProfileSrvInfo.Name}),
 	)
 	if err != nil {
 		klog.Fatalf("ERROR: cannot init client: %v\n", err)
 	}
-	config.UserClient = c
+	return c
 }

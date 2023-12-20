@@ -3,7 +3,7 @@ package initialize
 import (
 	"fmt"
 
-	"github.com/alimy/freecar/app/api/cmd/trip/config"
+	"github.com/alimy/freecar/app/trip/config"
 	"github.com/alimy/freecar/idle/auto/rpc/car/carservice"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
