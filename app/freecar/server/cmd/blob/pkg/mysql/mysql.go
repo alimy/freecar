@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/gorm"

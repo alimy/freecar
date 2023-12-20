@@ -3,7 +3,7 @@ package tools
 import (
 	"net"
 
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 )
 
 // GetFreePort get a free port.

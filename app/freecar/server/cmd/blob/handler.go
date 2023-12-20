@@ -9,9 +9,9 @@ import (
 	"github.com/alimy/freecar/app/api/cmd/blob/pkg/mysql"
 	"github.com/alimy/freecar/app/api/cmd/blob/pkg/redis"
 	"github.com/alimy/freecar/idle/auto/rpc/blob"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/id"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
 )

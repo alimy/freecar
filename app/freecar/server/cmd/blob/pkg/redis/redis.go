@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/alimy/freecar/app/api/cmd/blob/pkg/mysql"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/id"
 	"github.com/bytedance/sonic"
 	"github.com/go-redis/redis/v8"
 )

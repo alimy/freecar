@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/alimy/freecar/app/api/cmd/blob/config"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/alimy/freecar/app/api/cmd/trip/config"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

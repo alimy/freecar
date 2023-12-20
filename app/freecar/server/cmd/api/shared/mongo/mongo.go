@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/alimy/freecar/library/cor/mongo/objid"
+	"github.com/alimy/freecar/library/core/mongo/objid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

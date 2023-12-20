@@ -13,7 +13,7 @@ import (
 	"github.com/alimy/freecar/app/api/cmd/trip/pkg/poi"
 	"github.com/alimy/freecar/app/api/cmd/trip/pkg/profile"
 	"github.com/alimy/freecar/idle/auto/rpc/trip/tripservice"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"

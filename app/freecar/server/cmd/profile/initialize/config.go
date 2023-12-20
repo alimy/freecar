@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/alimy/freecar/app/api/cmd/profile/config"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/tools"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/hashicorp/consul/api"

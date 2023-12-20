@@ -11,9 +11,9 @@ import (
 	"github.com/alimy/freecar/app/api/pkg"
 	kbase "github.com/alimy/freecar/idle/auto/rpc/base"
 	ktrip "github.com/alimy/freecar/idle/auto/rpc/trip"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/tools"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 )

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/alimy/freecar/app/api/cmd/blob/config"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/go-redis/redis/v8"
 )
 

@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/alimy/freecar/idle/auto/rpc/base"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/id"
-	"github.com/alimy/freecar/library/cor/test"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/id"
+	"github.com/alimy/freecar/library/core/test"
 	"github.com/bytedance/sonic"
 )
 

@@ -8,7 +8,7 @@ import (
 
 	"github.com/alimy/freecar/app/api/cmd/profile/config"
 	"github.com/alimy/freecar/idle/auto/rpc/base"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/app/client"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

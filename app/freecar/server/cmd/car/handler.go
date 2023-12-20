@@ -8,10 +8,10 @@ import (
 	"github.com/alimy/freecar/app/car/pkg/mongo"
 	"github.com/alimy/freecar/idle/auto/rpc/base"
 	"github.com/alimy/freecar/idle/auto/rpc/car"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/id"
-	"github.com/alimy/freecar/library/cor/tools"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/id"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 

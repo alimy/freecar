@@ -3,7 +3,7 @@ package objid
 import (
 	"fmt"
 
-	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/core/id"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

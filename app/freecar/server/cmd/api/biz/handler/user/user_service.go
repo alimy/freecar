@@ -10,9 +10,9 @@ import (
 	huser "github.com/alimy/freecar/app/api/biz/model/user"
 	"github.com/alimy/freecar/app/api/config"
 	kuser "github.com/alimy/freecar/idle/auto/rpc/user"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/tools"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 )

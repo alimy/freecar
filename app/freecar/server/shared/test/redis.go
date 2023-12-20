@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"

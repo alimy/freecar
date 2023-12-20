@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/alimy/freecar/idle/auto/rpc/base"
-	"github.com/alimy/freecar/library/cor/errno"
+	"github.com/alimy/freecar/library/core/errno"
 )
 
 func BuildBaseResp(err error) *base.BaseResponse {

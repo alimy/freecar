@@ -7,8 +7,8 @@ import (
 	"net/http"
 
 	"github.com/alimy/freecar/app/api/biz/handler"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/tools"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )

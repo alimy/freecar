@@ -21,8 +21,8 @@ import (
 
 // NewCarService create CarService server.
 func NewCarService() server.Server {
-	IP, Port := internal.InitFlag()
-	r, info := internal.InitRegistry(Port)
+	ip, port := internal.InitFlag()
+	r, info := internal.InitRegistry(port)
 	db := internal.InitDB()
 	redisClient := internal.InitRedis()
 	amqpC := internal.InitMq()
@@ -31,19 +31,17 @@ func NewCarService() server.Server {
 	if err != nil {
 		klog.Fatal("cannot create publisher")
 	}
-
 	css := &carSrv{
 		Publisher:    publisher,
 		MongoManager: mongoPkg.NewManager(db),
 		RedisManager: redisPkg.NewManager(redisClient),
 	}
-	srv := carservice.NewServer(css,
-		server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(IP, strconv.Itoa(Port)))),
+	return carservice.NewServer(css,
+		server.WithServiceAddr(utils.NewNetAddr(consts.TCP, net.JoinHostPort(ip, strconv.Itoa(port)))),
 		server.WithRegistry(r),
 		server.WithRegistryInfo(info),
 		server.WithLimit(&limit.Option{MaxConnections: 2000, MaxQPS: 500}),
 		server.WithSuite(tracing.NewServerSuite()),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.Name}),
 	)
-	return srv
 }

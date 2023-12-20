@@ -8,7 +8,7 @@ import (
 	"github.com/alimy/freecar/idle/auto/rpc/base"
 	"github.com/alimy/freecar/idle/auto/rpc/profile"
 	"github.com/alimy/freecar/idle/auto/rpc/profile/profileservice"
-	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/core/id"
 	"github.com/bytedance/sonic"
 )
 

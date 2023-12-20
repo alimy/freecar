@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 

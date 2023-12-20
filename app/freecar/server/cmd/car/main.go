@@ -14,7 +14,7 @@ import (
 	"github.com/alimy/freecar/app/car/pkg/trip"
 	"github.com/alimy/freecar/app/car/pkg/ws"
 	"github.com/alimy/freecar/idle/auto/rpc/car/carservice"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	hzserver "github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"

@@ -11,7 +11,7 @@ import (
 	"github.com/alimy/freecar/app/api/cmd/profile/pkg/ocr"
 	"github.com/alimy/freecar/app/api/cmd/profile/pkg/redis"
 	"github.com/alimy/freecar/idle/auto/rpc/profile/profileservice"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"

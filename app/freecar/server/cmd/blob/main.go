@@ -11,7 +11,7 @@ import (
 	"github.com/alimy/freecar/app/api/cmd/blob/pkg/mysql"
 	"github.com/alimy/freecar/app/api/cmd/blob/pkg/redis"
 	"github.com/alimy/freecar/idle/auto/rpc/blob/blobservice"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/limit"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"

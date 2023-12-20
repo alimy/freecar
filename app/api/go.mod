@@ -18,7 +18,7 @@ require (
 	github.com/hertz-contrib/obs-opentelemetry/logging/logrus v0.1.1
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.3.1
 	github.com/hertz-contrib/opensergo v0.0.1
-	github.com/hertz-contrib/paseto v0.0.0-20230327030429-f31f9a84ea6c
+	github.com/hertz-contrib/paseto v0.0.0-20230508023022-71af6635a26c
 	github.com/hertz-contrib/pprof v0.1.0
 	github.com/hertz-contrib/registry/consul v0.0.0-20230310022437-e0024eacdbb7
 	github.com/kitex-contrib/obs-opentelemetry v0.2.5

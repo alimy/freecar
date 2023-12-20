@@ -4,11 +4,11 @@ import (
 	"context"
 
 	"github.com/alimy/freecar/idle/auto/rpc/user"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/tools"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/tools"
 
 	"github.com/alimy/freecar/idle/auto/rpc/user/userservice"
-	"github.com/alimy/freecar/library/cor/id"
+	"github.com/alimy/freecar/library/core/id"
 )
 
 // Manager defines a car manager.

@@ -4,7 +4,7 @@ package car
 
 import (
 	"github.com/alimy/freecar/app/api/biz/router/common"
-	"github.com/alimy/freecar/library/cor/consts"
+	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 

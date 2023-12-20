@@ -7,11 +7,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/alimy/freecar/idle/auto/rpc/base"
-	"github.com/alimy/freecar/library/cor/consts"
-	"github.com/alimy/freecar/library/cor/errno"
-	"github.com/alimy/freecar/library/cor/id"
-	mgutil "github.com/alimy/freecar/library/cor/mongo"
-	"github.com/alimy/freecar/library/cor/mongo/objid"
+	"github.com/alimy/freecar/library/core/consts"
+	"github.com/alimy/freecar/library/core/errno"
+	"github.com/alimy/freecar/library/core/id"
+	mgutil "github.com/alimy/freecar/library/core/mongo"
+	"github.com/alimy/freecar/library/core/mongo/objid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
