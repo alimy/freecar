@@ -11,12 +11,12 @@ const (
 	AccountID  = "accountID"
 	ID         = "id"
 
-	ApiConfigPath     = "./server/cmd/api/config.yaml"
-	UserConfigPath    = "./server/cmd/user/config.yaml"
-	BlobConfigPath    = "./server/cmd/blob/config.yaml"
-	CarConfigPath     = "./server/cmd/car/config.yaml"
-	ProfileConfigPath = "./server/cmd/profile/config.yaml"
-	TripConfigPath    = "./server/cmd/trip/config.yaml"
+	ApiConfigPath     = "./config.yaml"
+	UserConfigPath    = "./config.yaml"
+	BlobConfigPath    = "./config.yaml"
+	CarConfigPath     = "./config.yaml"
+	ProfileConfigPath = "./config.yaml"
+	TripConfigPath    = "./config.yaml"
 
 	HlogFilePath = "./tmp/hlog/logs/"
 	KlogFilePath = "./tmp/klog/logs/"

@@ -31,4 +31,5 @@ private.key
 data
 bin
 out
+tmp
 target

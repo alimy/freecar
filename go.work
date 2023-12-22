@@ -10,7 +10,7 @@ use (
 	./app/user
 	./app/web-api
 	./library/core
-	./tools/kris
+	./tools/sorgo
 )
 
 replace (
