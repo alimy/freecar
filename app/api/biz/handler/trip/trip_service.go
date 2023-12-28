@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	htrip "github.com/alimy/freecar/app/api/biz/model/trip"
-	"github.com/alimy/freecar/app/api/pkg"
+	"github.com/alimy/freecar/app/api/internal/tool"
 	"github.com/alimy/freecar/app/api/rpc"
 	kbase "github.com/alimy/freecar/idle/auto/rpc/base"
 	ktrip "github.com/alimy/freecar/idle/auto/rpc/trip"
@@ -99,7 +99,7 @@ func CreateTrip(ctx context.Context, c *app.RequestContext) {
 	}
 
 	res, err := rpc.TripSvc.CreateTrip(ctx, &ktrip.CreateTripRequest{
-		Start:     pkg.ConvertTripLocation(req.Start),
+		Start:     tool.ConvertTripLocation(req.Start),
 		CarId:     req.CarID,
 		AvatarUrl: req.AvatarURL,
 		AccountId: c.MustGet(consts.AccountID).(string),

@@ -3,14 +3,14 @@ package internal
 import (
 	"context"
 
-	"github.com/alimy/freecar/app/blob/config"
+	"github.com/alimy/freecar/app/blob/conf"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
 func InitMinio() *minio.Client {
-	mi := config.GlobalServerConfig.MinioInfo
+	mi := conf.GlobalServerConfig.MinioInfo
 	// Initialize minio client object.
 	mc, err := minio.New(mi.Endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(mi.AccessKeyID, mi.SecretAccessKey, ""),

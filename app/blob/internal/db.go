@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/alimy/freecar/app/blob/config"
+	"github.com/alimy/freecar/app/blob/conf"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"gorm.io/driver/mysql"
@@ -15,9 +15,8 @@ import (
 	"gorm.io/plugin/opentelemetry/tracing"
 )
 
-// InitDB to init database
-func InitDB() *gorm.DB {
-	c := config.GlobalServerConfig.MysqlInfo
+func NewDB() *gorm.DB {
+	c := conf.GlobalServerConfig.MysqlInfo
 	dsn := fmt.Sprintf(consts.MySqlDSN, c.User, c.Password, c.Host, c.Port, c.Name)
 	newLogger := logger.New(
 		logrus.NewWriter(), // io writer

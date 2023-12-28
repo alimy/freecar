@@ -4,7 +4,7 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/alimy/freecar/app/profile/config"
+	"github.com/alimy/freecar/app/profile/conf"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -17,8 +17,8 @@ import (
 // InitRegistry to init consul
 func InitRegistry(Port int) (registry.Registry, *registry.Info) {
 	r, err := consul.NewConsulRegister(net.JoinHostPort(
-		config.GlobalConsulConfig.Host,
-		strconv.Itoa(config.GlobalConsulConfig.Port)),
+		conf.GlobalConsulConfig.Host,
+		strconv.Itoa(conf.GlobalConsulConfig.Port)),
 		consul.WithCheck(&api.AgentServiceCheck{
 			Interval:                       consts.ConsulCheckInterval,
 			Timeout:                        consts.ConsulCheckTimeout,
@@ -34,8 +34,8 @@ func InitRegistry(Port int) (registry.Registry, *registry.Info) {
 		klog.Fatalf("generate service name failed: %s", err.Error())
 	}
 	info := &registry.Info{
-		ServiceName: config.GlobalServerConfig.Name,
-		Addr:        utils.NewNetAddr(consts.TCP, net.JoinHostPort(config.GlobalServerConfig.Host, strconv.Itoa(Port))),
+		ServiceName: conf.GlobalServerConfig.Name,
+		Addr:        utils.NewNetAddr(consts.TCP, net.JoinHostPort(conf.GlobalServerConfig.Host, strconv.Itoa(Port))),
 		Tags: map[string]string{
 			"ID": sf.Generate().Base36(),
 		},

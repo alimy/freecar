@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	pt "aidanwoods.dev/go-paseto"
-	"github.com/alimy/freecar/app/api/config"
+	"github.com/alimy/freecar/app/api/conf"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/alimy/freecar/library/core/errno"
 	"github.com/alimy/freecar/library/core/middleware"
@@ -28,7 +28,7 @@ func CommonMW() []app.HandlerFunc {
 }
 
 func PasetoAuth(audience string) app.HandlerFunc {
-	pi := config.GlobalServerConfig.PasetoInfo
+	pi := conf.GlobalServerConfig.PasetoInfo
 	pf, err := paseto.NewV4PublicParseFunc(pi.PubKey, []byte(pi.Implicit), paseto.WithAudience(audience), paseto.WithNotBefore())
 	if err != nil {
 		hlog.Fatal(err)

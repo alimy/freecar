@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	"github.com/alimy/freecar/app/profile/config"
+	"github.com/alimy/freecar/app/profile/conf"
 	"github.com/alimy/freecar/app/profile/internal"
 	"github.com/alimy/freecar/app/profile/servants"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -12,11 +12,12 @@ import (
 
 func main() {
 	// initialization
+	conf.Initial()
 	internal.Initial()
 
 	p := provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(config.GlobalServerConfig.Name),
-		provider.WithExportEndpoint(config.GlobalServerConfig.OtelInfo.EndPoint),
+		provider.WithServiceName(conf.GlobalServerConfig.Name),
+		provider.WithExportEndpoint(conf.GlobalServerConfig.OtelInfo.EndPoint),
 		provider.WithInsecure(),
 	)
 	defer p.Shutdown(context.Background())

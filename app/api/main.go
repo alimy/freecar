@@ -10,7 +10,7 @@ import (
 
 	"github.com/alimy/freecar/app/api/biz/handler"
 	"github.com/alimy/freecar/app/api/biz/router"
-	"github.com/alimy/freecar/app/api/config"
+	"github.com/alimy/freecar/app/api/conf"
 	"github.com/alimy/freecar/app/api/internal"
 	"github.com/alimy/freecar/app/api/rpc"
 	"github.com/alimy/freecar/library/core/errno"
@@ -26,6 +26,7 @@ import (
 
 func main() {
 	// initialize
+	conf.Initial()
 	r, info, tlsCfg := internal.Initial()
 	rpc.Initial()
 	tracer, trcCfg := hertztracing.NewServerTracer()
@@ -34,7 +35,7 @@ func main() {
 		tracer,
 		server.WithALPN(true),
 		server.WithTLS(tlsCfg),
-		server.WithHostPorts(fmt.Sprintf(":%d", config.GlobalServerConfig.Port)),
+		server.WithHostPorts(fmt.Sprintf(":%d", conf.GlobalServerConfig.Port)),
 		server.WithRegistry(r, info),
 		server.WithHandleMethodNotAllowed(true),
 	)

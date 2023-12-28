@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/alimy/freecar/app/profile/pkg/mongo"
+	"github.com/alimy/freecar/app/profile/infras/mongo"
 	"github.com/alimy/freecar/idle/auto/rpc/base"
 	"github.com/alimy/freecar/idle/auto/rpc/blob"
 	"github.com/alimy/freecar/idle/auto/rpc/profile"

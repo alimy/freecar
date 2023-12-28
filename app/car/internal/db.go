@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/alimy/freecar/app/car/config"
+	"github.com/alimy/freecar/app/car/conf"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,7 +13,7 @@ import (
 
 // InitDB to init database
 func InitDB() *mongo.Database {
-	c := config.GlobalServerConfig.MongoDBInfo
+	c := conf.GlobalServerConfig.MongoDBInfo
 	mongoClient, err := mongo.Connect(context.Background(), options.Client().ApplyURI(
 		fmt.Sprintf(consts.MongoURI, c.User, c.Password, c.Host, c.Port)))
 	if err != nil {

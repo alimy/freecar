@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/alimy/freecar/app/user/pkg/mysql"
+	"github.com/alimy/freecar/app/user/infras/mysql"
 	"github.com/alimy/freecar/idle/auto/rpc/base"
 	"github.com/alimy/freecar/idle/auto/rpc/blob"
 	"github.com/alimy/freecar/idle/auto/rpc/user"

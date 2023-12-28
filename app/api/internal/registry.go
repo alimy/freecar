@@ -4,7 +4,7 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/alimy/freecar/app/api/config"
+	"github.com/alimy/freecar/app/api/conf"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/hertz/pkg/app/server/registry"
@@ -19,8 +19,8 @@ func initRegistry() (registry.Registry, *registry.Info) {
 	// build a consul client
 	cfg := api.DefaultConfig()
 	cfg.Address = net.JoinHostPort(
-		config.GlobalConsulConfig.Host,
-		strconv.Itoa(config.GlobalConsulConfig.Port))
+		conf.GlobalConsulConfig.Host,
+		strconv.Itoa(conf.GlobalConsulConfig.Port))
 	consulClient, err := api.NewClient(cfg)
 	if err != nil {
 		hlog.Fatalf("new consul client failed: %s", err.Error())
@@ -39,9 +39,9 @@ func initRegistry() (registry.Registry, *registry.Info) {
 		hlog.Fatalf("generate service name failed: %s", err.Error())
 	}
 	info := &registry.Info{
-		ServiceName: config.GlobalServerConfig.Name,
-		Addr: utils.NewNetAddr(consts.TCP, net.JoinHostPort(config.GlobalServerConfig.Host,
-			strconv.Itoa(config.GlobalServerConfig.Port))),
+		ServiceName: conf.GlobalServerConfig.Name,
+		Addr: utils.NewNetAddr(consts.TCP, net.JoinHostPort(conf.GlobalServerConfig.Host,
+			strconv.Itoa(conf.GlobalServerConfig.Port))),
 		Tags: map[string]string{
 			"ID": sf.Generate().Base36(),
 		},

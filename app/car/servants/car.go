@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/alimy/freecar/app/car/pkg/mongo"
+	"github.com/alimy/freecar/app/car/infras/mongo"
 	"github.com/alimy/freecar/idle/auto/rpc/base"
 	"github.com/alimy/freecar/idle/auto/rpc/car"
 	"github.com/alimy/freecar/library/core/consts"

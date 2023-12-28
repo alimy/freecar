@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/alimy/freecar/app/trip/pkg/mongo"
+	"github.com/alimy/freecar/app/trip/infras/mongo"
 	"github.com/alimy/freecar/idle/auto/rpc/base"
 	"github.com/alimy/freecar/idle/auto/rpc/trip"
 	"github.com/alimy/freecar/library/core/consts"

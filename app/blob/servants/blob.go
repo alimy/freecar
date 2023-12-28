@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/alimy/freecar/app/blob/pkg/minio"
-	"github.com/alimy/freecar/app/blob/pkg/mysql"
-	"github.com/alimy/freecar/app/blob/pkg/redis"
+	"github.com/alimy/freecar/app/blob/infras/minio"
+	"github.com/alimy/freecar/app/blob/infras/mysql"
+	"github.com/alimy/freecar/app/blob/infras/redis"
 	"github.com/alimy/freecar/idle/auto/rpc/blob"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/alimy/freecar/library/core/errno"

@@ -8,7 +8,7 @@ import (
 
 	"github.com/alimy/freecar/app/api/biz/model/base"
 	"github.com/alimy/freecar/app/api/biz/model/gpt"
-	"github.com/alimy/freecar/app/api/config"
+	"github.com/alimy/freecar/app/api/conf"
 	sConst "github.com/alimy/freecar/library/core/consts"
 	"github.com/alimy/freecar/library/core/errno"
 	"github.com/alimy/freecar/library/core/utils"
@@ -71,7 +71,7 @@ func Chat(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-	clt.SetProxy(protocol.ProxyURI(protocol.ParseURI(config.GlobalServerConfig.ProxyURL)))
+	clt.SetProxy(protocol.ProxyURI(protocol.ParseURI(conf.GlobalServerConfig.ProxyURL)))
 
 	reqRaw := &requestRaw{
 		Model: "gpt-3.5-turbo",
@@ -88,7 +88,7 @@ func Chat(ctx context.Context, c *app.RequestContext) {
 	hReq.SetMethod(consts.MethodPost)
 	hReq.Header.SetContentTypeBytes([]byte("application/json"))
 	hReq.SetRequestURI(sConst.GPTUrl)
-	hReq.SetHeader("Authorization", "Bearer "+config.GlobalServerConfig.GPTKey)
+	hReq.SetHeader("Authorization", "Bearer "+conf.GlobalServerConfig.GPTKey)
 	body, err := sonic.Marshal(reqRaw)
 	hReq.SetBody(body)
 	err = clt.Do(ctx, hReq, hRes)

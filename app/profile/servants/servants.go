@@ -4,12 +4,12 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/alimy/freecar/app/profile/config"
+	"github.com/alimy/freecar/app/profile/conf"
+	"github.com/alimy/freecar/app/profile/infras/client"
+	"github.com/alimy/freecar/app/profile/infras/mongo"
+	"github.com/alimy/freecar/app/profile/infras/ocr"
+	"github.com/alimy/freecar/app/profile/infras/redis"
 	"github.com/alimy/freecar/app/profile/internal"
-	"github.com/alimy/freecar/app/profile/pkg/mongo"
-	"github.com/alimy/freecar/app/profile/pkg/ocr"
-	"github.com/alimy/freecar/app/profile/pkg/redis"
-	"github.com/alimy/freecar/app/profile/rpc"
 	"github.com/alimy/freecar/idle/auto/rpc/profile/profileservice"
 	"github.com/alimy/freecar/library/core/consts"
 	"github.com/cloudwego/kitex/pkg/limit"
@@ -28,7 +28,7 @@ func NewProfileService() server.Server {
 	pss := &profileSrv{
 		MongoManager:   mongo.NewManager(mongoDb),
 		RedisManager:   redis.NewManager(redisClient),
-		BlobManager:    rpc.GetBlobService(),
+		BlobManager:    client.GetBlobService(),
 		LicenseManager: &ocr.LicenseManager{},
 	}
 	return profileservice.NewServer(pss,
@@ -37,6 +37,6 @@ func NewProfileService() server.Server {
 		server.WithRegistryInfo(info),
 		server.WithLimit(&limit.Option{MaxConnections: 2000, MaxQPS: 500}),
 		server.WithSuite(tracing.NewServerSuite()),
-		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: config.GlobalServerConfig.Name}),
+		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GlobalServerConfig.Name}),
 	)
 }
