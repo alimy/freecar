@@ -5,7 +5,6 @@ import (
 
 	"github.com/alimy/freecar/app/user/conf"
 	"github.com/alimy/freecar/idle/auto/rpc/blob/blobservice"
-	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"
@@ -22,7 +21,7 @@ func initBlob() blobservice.Client {
 		conf.GlobalConsulConfig.Host,
 		conf.GlobalConsulConfig.Port))
 	if err != nil {
-		hlog.Fatalf("new nacos client failed: %s", err.Error())
+		klog.Fatalf("new nacos client failed: %s", err.Error())
 	}
 	provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(conf.GlobalServerConfig.BlobSrvInfo.Name),

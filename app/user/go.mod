@@ -7,7 +7,6 @@ require (
 	github.com/alimy/freecar/library/core v0.0.0
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/bytedance/sonic v1.10.2
-	github.com/cloudwego/hertz v0.7.3
 	github.com/cloudwego/kitex v0.8.0
 	github.com/hashicorp/consul/api v1.26.1
 	github.com/hertz-contrib/paseto v0.0.0-20230508023022-71af6635a26c
@@ -40,6 +39,7 @@ require (
 	github.com/cloudwego/dynamicgo v0.1.6 // indirect
 	github.com/cloudwego/fastpb v0.0.4 // indirect
 	github.com/cloudwego/frugal v0.1.12 // indirect
+	github.com/cloudwego/hertz v0.7.3 // indirect
 	github.com/cloudwego/localsession v0.0.2 // indirect
 	github.com/cloudwego/netpoll v0.5.1 // indirect
 	github.com/cloudwego/thriftgo v0.3.3 // indirect

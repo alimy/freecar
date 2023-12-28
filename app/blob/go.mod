@@ -7,7 +7,6 @@ require (
 	github.com/alimy/freecar/library/core v0.0.0
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/bytedance/sonic v1.10.2
-	github.com/cloudwego/hertz v0.7.3
 	github.com/cloudwego/kitex v0.8.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/hashicorp/consul/api v1.26.1

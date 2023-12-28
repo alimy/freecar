@@ -5,7 +5,6 @@ import (
 
 	"github.com/alimy/freecar/app/trip/conf"
 	"github.com/alimy/freecar/idle/auto/rpc/profile/profileservice"
-	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"
@@ -22,7 +21,7 @@ func initProfile() profileservice.Client {
 		conf.GlobalConsulConfig.Host,
 		conf.GlobalConsulConfig.Port))
 	if err != nil {
-		hlog.Fatalf("new consul client failed: %s", err.Error())
+		klog.Fatalf("new consul client failed: %s", err.Error())
 	}
 	// init OpenTelemetry
 	provider.NewOpenTelemetryProvider(
