@@ -4,7 +4,7 @@ go 1.21.5
 
 require (
 	github.com/alimy/freecar/idle v0.0.0
-	github.com/alimy/mir/v4 v4.1.0-alpha.3
+	github.com/alimy/mir/v4 v4.1.0-rc.1
 	github.com/gin-gonic/gin v1.9.1
 )
 
