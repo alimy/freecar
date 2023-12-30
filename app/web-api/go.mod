@@ -4,7 +4,7 @@ go 1.21.5
 
 require (
 	github.com/alimy/freecar/idle v0.0.0
-	github.com/alimy/mir/v4 v4.1.0-rc.1
+	github.com/alimy/mir/v4 v4.1.0
 	github.com/cloudwego/hertz v0.7.3
 )
 

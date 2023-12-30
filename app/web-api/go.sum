@@ -1,5 +1,5 @@
-github.com/alimy/mir/v4 v4.1.0-rc.1 h1:Q2U+BAgDuXii5HJwHKqWelu5iurLeQdkW55eAgvITAU=
-github.com/alimy/mir/v4 v4.1.0-rc.1/go.mod h1:d58dBvw2KImcVbAUANrciEV/of0arMNsI9c/5UNCMMc=
+github.com/alimy/mir/v4 v4.1.0 h1:D6R0dkfsK1iH8MVu0b9yQ0UjdBU09goiui9PVI94G4o=
+github.com/alimy/mir/v4 v4.1.0/go.mod h1:d58dBvw2KImcVbAUANrciEV/of0arMNsI9c/5UNCMMc=
 github.com/andeya/goutil v0.0.0-20220704075712-42f2ec55fe8d/go.mod h1:jEG5/QnnhG7yGxwFUX6Q+JGMif7sjdHmmNVjn7nhJDo=
 github.com/andeya/goutil v1.0.0 h1:ZBF/1dParfzTTiZ3SivkrV3Rd50SnXPqqf4IRvULvNQ=
 github.com/andeya/goutil v1.0.0/go.mod h1:jEG5/QnnhG7yGxwFUX6Q+JGMif7sjdHmmNVjn7nhJDo=
