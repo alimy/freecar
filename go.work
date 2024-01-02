@@ -1,14 +1,14 @@
 go 1.21.5
 
 use (
-	./app/admin
-	./app/api
+	./api/admin
+	./api/api
+	./api/web-api
 	./app/blob
 	./app/car
 	./app/profile
 	./app/trip
 	./app/user
-	./app/web-api
 	./library/core
 	./tools/sorgo
 )
